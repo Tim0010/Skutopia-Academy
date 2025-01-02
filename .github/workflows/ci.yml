@@ -21,19 +21,22 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+    
     - name: Install server dependencies
       run: |
         cd server
         npm ci
-        
-    - name: Run server tests
+    
+    - name: Run tests
       run: |
         cd server
         npm test
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        NODE_ENV: test
         
     - name: Install client dependencies
       run: |
