@@ -8,11 +8,11 @@ export default function palette() {
 
   const lightPalette = {
     primary: {
-      lighter: '#CCE5FF', // AI/primary/90 - primary container / primary fixed
-      light: '#92CCFF', // AI/primary/80 - primary fixed dim
-      main: '#006397', // AI/primary/40 - primary
-      dark: '#004B73', // AI/primary/30 - on primary fixed variant
-      darker: '#001D31' // AI/primary/10 - on primary container / on primary fixed
+      lighter: '#C8E6D9', // Light shade of the dark green
+      light: '#4D8B77', // Medium shade of the dark green
+      main: '#00573c', // Main dark green color (replacing blue #006397)
+      dark: '#004730', // Darker shade
+      darker: '#001A13' // Darkest shade
     },
     secondary: {
       lighter: '#D3E4F8', // AI/secondary/90 - secondary container / secondary fixed

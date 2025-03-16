@@ -8,11 +8,11 @@ import { alpha } from '@mui/material/styles';
 export default function themePalette() {
   // Modern professional color palette
   const primary = {
-    lighter: '#E3F2FD',
-    light: '#64B5F6',
-    main: '#2196F3', // Modern blue
-    dark: '#1976D2',
-    darker: '#0D47A1'
+    lighter: '#C8E6D9',
+    light: '#4D8B77',
+    main: '#00573c', // Dark green (replacing Modern blue #2196F3)
+    dark: '#004730',
+    darker: '#001A13'
   };
 
   const secondary = {
@@ -24,11 +24,11 @@ export default function themePalette() {
   };
 
   const info = {
-    lighter: '#E1F5FE',
-    light: '#4FC3F7',
-    main: '#03A9F4', // Light blue
-    dark: '#0288D1',
-    darker: '#01579B'
+    lighter: '#C8E6D9',
+    light: '#4D8B77',
+    main: '#00573c', // Dark green (replacing Light blue #03A9F4)
+    dark: '#004730',
+    darker: '#001A13'
   };
 
   const success = {
@@ -78,7 +78,7 @@ export default function themePalette() {
     grey: {
       0: '#FFFFFF',
       50: '#FAFAFA',
-      100: '#F5F5F5', 
+      100: '#F5F5F5',
       200: '#EEEEEE',
       300: '#E0E0E0',
       400: '#C4CDD5',
