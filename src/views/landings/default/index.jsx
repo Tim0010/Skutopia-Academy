@@ -94,8 +94,10 @@ export default function Main() {
           )
         }}
         headLine="The Success Academy"
-        captionLine="INTERACTIVE STEM LEARNING - Learn by solving problems and master concepts through practice"
+        captionLine="Master STEM through hands-on practice"
         primaryBtn={{ children: 'Get started', href: '/auth/register' }}
+        image="/assets/images/hero/stem-education.png"
+        imageAlt="STEM Education"
         listData={[
           { 
             title: 'Mathematics', 

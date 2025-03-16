@@ -32,7 +32,7 @@ const options = { root: null, rootMargin: '0px', threshold: 0.6 };
 
 /***************************  HERO - 17  ***************************/
 
-export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoSrc, videoThumbnail, listData }) {
+export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoSrc, videoThumbnail, listData, image, imageAlt }) {
   const theme = useTheme();
   const boxRadius = { xs: 24, sm: 32, md: 40 };
 
@@ -264,9 +264,71 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
             <GraphicsCard sx={{ 
               border: '5px solid', 
               borderColor: 'grey.300',
-              height: { xs: '280px', sm: '340px', md: '400px' } 
+              height: { xs: '280px', sm: '340px', md: '400px' },
+              overflow: 'hidden',
+              position: 'relative'
             }}>
-              <StackedCards />
+              {image ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 1.2,
+                    ease: [0.215, 0.61, 0.355, 1]
+                  }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.02, 1],
+                      rotate: [0, 0.5, 0] 
+                    }}
+                    transition={{
+                      duration: 30,
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      times: [0, 0.5, 1]
+                    }}
+                    style={{
+                      width: '100%',
+                      height: '100%'
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={image}
+                      alt={imageAlt || 'Hero Image'}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        transition: 'all 0.3s ease-in-out'
+                      }}
+                    />
+                  </motion.div>
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(45deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 100%)',
+                      opacity: 0.5,
+                      zIndex: 1
+                    }}
+                  />
+                </motion.div>
+              ) : (
+                <StackedCards />
+              )}
             </GraphicsCard>
           </motion.div>
         </Box>
@@ -282,5 +344,7 @@ Hero17.propTypes = {
   primaryBtn: PropTypes.any,
   videoSrc: PropTypes.string,
   videoThumbnail: PropTypes.string,
-  listData: PropTypes.array
+  listData: PropTypes.array,
+  image: PropTypes.string,
+  imageAlt: PropTypes.string
 };
