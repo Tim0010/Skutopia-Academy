@@ -1,3 +1,5 @@
+'use client';
+
 import PropTypes from 'prop-types';
 import Script from 'next/script';
 
@@ -6,18 +8,14 @@ import './globals.css';
 
 // @mui
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 // @project
 import ProviderWrapper from './ProviderWrapper';
-import { mainMetadata } from '@/metadata';
 
 // @types
 
 const gaId = process.env.NEXT_PUBLIC_ANALYTICS_ID || '';
-
-/***************************  METADATA - MAIN  ***************************/
-
-export const metadata = { ...mainMetadata };
 
 /***************************  LAYOUT - MAIN  ***************************/
 
@@ -31,9 +29,13 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </head>
       <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ProviderWrapper>{children}</ProviderWrapper>
-        </AppRouterCacheProvider>
+        <AuthProvider>
+          <AppRouterCacheProvider>
+            <ProviderWrapper>
+              {children}
+            </ProviderWrapper>
+          </AppRouterCacheProvider>
+        </AuthProvider>
         {gaId && <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}
       </body>
     </html>

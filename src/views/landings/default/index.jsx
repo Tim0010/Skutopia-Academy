@@ -78,7 +78,7 @@ export default function Main() {
   return (
     <>
       <Hero17
-        chip={{
+        chip={{ 
           label: 'Skutopia Academy',
           icon: (
             <Box sx={{ position: 'relative', display: 'inline-flex', mr: 1 }}>
@@ -110,7 +110,7 @@ export default function Main() {
         image="/assets/images/hero/stem-education.png"
         imageAlt="STEM Education"
         listData={[
-          {
+          { 
             title: 'Science',
             image: '/assets/icons/laboratory_2387545.svg',
             icon: (
@@ -138,7 +138,7 @@ export default function Main() {
               </Box>
             )
           },
-          {
+          { 
             title: 'Technology',
             image: '/assets/icons/technology_3206042.svg',
             icon: (
@@ -166,7 +166,7 @@ export default function Main() {
               </Box>
             )
           },
-          {
+          { 
             title: 'Engineering',
             image: '/assets/icons/engineering_2861721.svg',
             icon: (
@@ -194,7 +194,7 @@ export default function Main() {
               </Box>
             )
           },
-          {
+          { 
             title: 'Mathematics',
             image: '/assets/icons/math.svg',
             icon: (
@@ -224,7 +224,7 @@ export default function Main() {
           }
         ]}
       />
-
+      
       <LearningPaths
         heading="Welcome to Skutopia Academy"
         subheading="Explore our interactive platform designed to enhance STEM learning in Zambia through engaging content and personalized paths."
@@ -390,10 +390,10 @@ export default function Main() {
                       href: '/courses',
                       position: { top: 0, left: '5%' }
                     },
-                    {
-                      id: 'flashcards',
-                      title: 'Flashcards',
-                      icon: 'tabler-cards',
+          {
+            id: 'flashcards',
+            title: 'Flashcards',
+            icon: 'tabler-cards',
                       color: '#2196f3',
                       bgColor: '#e3f2fd',
                       description: 'Quick concept review',
@@ -403,7 +403,7 @@ export default function Main() {
                     {
                       id: 'quizzes',
                       title: 'Quizzes',
-                      icon: 'tabler-checklist',
+            icon: 'tabler-checklist',
                       color: '#ff9800',
                       bgColor: '#fff3e0',
                       description: 'Test your knowledge',
@@ -1137,7 +1137,7 @@ export default function Main() {
                             }}
                           >
                             {feature.title}
-                          </Typography>
+        </Typography>
                           <Typography
                             variant="body1"
                             sx={{
@@ -1146,7 +1146,7 @@ export default function Main() {
                             }}
                           >
                             {feature.description}
-                          </Typography>
+        </Typography>
                         </Box>
                       </Box>
                     </motion.div>
@@ -1189,7 +1189,7 @@ export default function Main() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7 }}
-                  sx={{
+                        sx={{
                     position: 'absolute',
                     top: '5%',
                     right: '10%',
@@ -1316,11 +1316,11 @@ export default function Main() {
                       </Box>
                     </motion.div>
                   ))}
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
-        </Container>
+                    </Box>
+                      </Box>
+              </Grid>
+        </Grid>
+      </Container>
       </Box>
     </>
   );

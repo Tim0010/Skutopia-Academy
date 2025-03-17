@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import Loader from '@/components/Loader';
 import ThemeProvider from '@/components/ThemeProvider';
 import { ConfigProvider } from '@/contexts/ConfigContext';
-import { AuthProvider } from '@/contexts/AuthContext';
 
 // @types
 
@@ -27,12 +26,14 @@ export default function ProviderWrapper({ children }) {
    * "Warning: Prop className did not match".
    */
 
+  if (loader) {
+    return <Loader />;
+  }
+
   return (
     <ConfigProvider>
       <ThemeProvider>
-        <AuthProvider>
-          <main>{loader ? <Loader /> : children}</main>
-        </AuthProvider>
+        {children}
       </ThemeProvider>
     </ConfigProvider>
   );
