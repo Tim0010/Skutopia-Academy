@@ -12,7 +12,7 @@ export const navbar = {
   // Use an open book SVG icon as the logo
   logoComponent: (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <SvgIcon name="tabler-book" size={32} color="primary.main" sx={{ mr: 1 }} />
+      <SvgIcon name="tabler-school" size={32} color="primary.main" sx={{ mr: 1 }} />
       <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
         Skutopia
       </Typography>
@@ -23,13 +23,13 @@ export const navbar = {
     href: '/auth/login',
     sx: { minWidth: 40, width: 40, height: 40, p: 0 }
   },
-  primaryBtn: { 
+  primaryBtn: {
     children: 'Sign up free',
     href: '/auth/register'
   },
   navItems: [
     { id: 'home', title: 'Explore', link: '/' },
-    { id: 'courses', title: 'Subjects', link: '/courses' },
+    { id: 'courses', title: 'Courses', link: '/courses' },
     { id: 'flashcards', title: 'Flashcards', link: '/flashcards' },
     { id: 'quizzes', title: 'Practice', link: '/practice' },
     { id: 'mentorship', title: 'Mentorship', link: '/mentorship' }

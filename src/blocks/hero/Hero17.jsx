@@ -98,17 +98,7 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
           zIndex: -1,
           borderBottomLeftRadius: boxRadius,
           borderBottomRightRadius: boxRadius,
-          background: `linear-gradient(180deg, ${theme.palette.grey[100]} 0%, rgba(255, 255, 255, 0) 100%)`,
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.4,
-            background: getBackgroundDots(theme.palette.grey[300], 60, 35),
-          }
+          background: '#FFFFFF',
         }}
       />
       <ContainerWrapper sx={{ py: { xs: 6, sm: 8, md: 10 } }}>
@@ -129,9 +119,9 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                   variant="outlined"
                   label={
                     typeof chip.label === 'string' ? (
-                      <Typography 
-                        variant="caption" 
-                        sx={{ 
+                      <Typography
+                        variant="caption"
+                        sx={{
                           color: 'text.primary',
                           fontWeight: 500,
                           letterSpacing: '0.02em'
@@ -143,11 +133,11 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                       chip.label
                     )
                   }
-                  sx={{ 
+                  sx={{
                     bgcolor: 'background.paper',
                     borderColor: 'divider',
-                    '& .MuiChip-label': { 
-                      py: 0.75, 
+                    '& .MuiChip-label': {
+                      py: 0.75,
                       px: 2
                     },
                     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.05)'
@@ -165,10 +155,10 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                   ease: [0.215, 0.61, 0.355, 1]
                 }}
               >
-                <Typography 
-                  variant="h1" 
-                  align="center" 
-                  sx={{ 
+                <Typography
+                  variant="h1"
+                  align="center"
+                  sx={{
                     maxWidth: 800,
                     fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
                     fontWeight: 700,
@@ -223,7 +213,6 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                   <Button
                     color="primary"
                     variant="contained"
-                    startIcon={<SvgIcon name="tabler-sparkles" size={16} stroke={3} color="background.default" />}
                     {...primaryBtn}
                   />
                 </ButtonAnimationWrapper>
@@ -261,8 +250,8 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
             }}
             style={{ scale }}
           >
-            <GraphicsCard sx={{ 
-              border: '5px solid', 
+            <GraphicsCard sx={{
+              border: '5px solid',
               borderColor: 'grey.300',
               height: { xs: '280px', sm: '340px', md: '400px' },
               overflow: 'hidden',
@@ -284,9 +273,9 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                   }}
                 >
                   <motion.div
-                    animate={{ 
+                    animate={{
                       scale: [1, 1.02, 1],
-                      rotate: [0, 0.5, 0] 
+                      rotate: [0, 0.5, 0]
                     }}
                     transition={{
                       duration: 30,

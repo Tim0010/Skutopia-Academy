@@ -28,14 +28,6 @@ const socialIcons = [
   {
     icon: 'tabler-filled-youtube',
     link: { href: `${branding.company.socialLink.youtube}`, ...linkProps }
-  },
-  {
-    icon: 'tabler-filled-brand-github',
-    link: { href: `${branding.company.socialLink.github}`, ...linkProps }
-  },
-  {
-    icon: 'tabler-filled-dribble',
-    link: { href: `${branding.company.socialLink.dribble}`, ...linkProps }
   }
 ];
 

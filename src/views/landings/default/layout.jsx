@@ -26,7 +26,7 @@ export default function MainLayout({ children }) {
   return (
     <>
       {/* header section */}
-      <Box sx={{ bgcolor: 'grey.100' }}>
+      <Box sx={{ bgcolor: 'white' }}>
         <Navbar10>
           <NavbarContent10 {...navbar} />
         </Navbar10>

@@ -15,7 +15,7 @@ import { NavbarContent10 } from '@/blocks/navbar/navbar-content';
 export default function SectionsLayout({ children }) {
   return (
     <>
-      <Box sx={{ bgcolor: 'grey.100' }}>
+      <Box sx={{ bgcolor: 'white' }}>
         <Navbar10>
           <NavbarContent10 {...navbar} />
         </Navbar10>

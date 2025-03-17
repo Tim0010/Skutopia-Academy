@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Loader from '@/components/Loader';
 import ThemeProvider from '@/components/ThemeProvider';
 import { ConfigProvider } from '@/contexts/ConfigContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 // @types
 
@@ -29,7 +30,9 @@ export default function ProviderWrapper({ children }) {
   return (
     <ConfigProvider>
       <ThemeProvider>
-        <main>{loader ? <Loader /> : children}</main>
+        <AuthProvider>
+          <main>{loader ? <Loader /> : children}</main>
+        </AuthProvider>
       </ThemeProvider>
     </ConfigProvider>
   );

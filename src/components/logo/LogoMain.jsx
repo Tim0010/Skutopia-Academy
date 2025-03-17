@@ -13,10 +13,10 @@ import SvgIcon from '@/components/SvgIcon';
 
 export default function LogoMain() {
   const theme = useTheme();
-  
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <SvgIcon name="tabler-book" size={32} color="primary.main" sx={{ mr: 1 }} />
+      <SvgIcon name="tabler-school" size={32} color="primary.main" sx={{ mr: 1 }} />
       <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
         Skutopia
       </Typography>

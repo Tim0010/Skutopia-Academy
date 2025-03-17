@@ -11,10 +11,13 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
 
 // @project
 import branding from '@/branding.json';
 import { generateFocusVisibleStyles } from '@/utils/CommonFocusStyle';
+import SvgIcon from '@/components/SvgIcon';
 
 /***************************  SITEMAP - DATA  ***************************/
 
@@ -92,7 +95,7 @@ const menuItems = [
 
 /***************************  FOOTER - SITEMAP  ***************************/
 
-export default function Sitemap({ list, isMenuDesign }) {
+export default function Sitemap({ list, isMenuDesign = false }) {
   const theme = useTheme();
 
   const menuItemStyle = {
@@ -105,26 +108,39 @@ export default function Sitemap({ list, isMenuDesign }) {
   };
 
   return (
-    <Grid container spacing={{ xs: 2.5, md: 4 }} sx={{ justifyContent: 'space-between' }}>
-      {(list || menuItems).map((item, index) => (
-        <Grid key={index} {...item.grid}>
-          <Stack sx={{ alignItems: 'flex-start', gap: { md: 3 } }}>
-            <Typography variant="h4">{item.title}</Typography>
-            <MenuList>
-              {item?.menu &&
-                item?.menu.map((menu, i) => (
-                  <MenuItem
-                    key={i}
-                    disableRipple
-                    sx={{ ...menuItemStyle, ...(isMenuDesign && { ...theme.typography.caption2, fontWeight: 400, my: 0.25 }) }}
-                    {...(menu.link && { component: NextLink, ...menu.link })}
-                    tabIndex={0}
-                    aria-label={menu.label}
+    <Grid container spacing={{ xs: 3, sm: 4 }}>
+      {list.map((item) => (
+        <Grid key={item.id} {...item.grid}>
+          <Stack sx={{ gap: { xs: 1.5, sm: 2 } }}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              {item.title}
+            </Typography>
+            <Stack sx={{ gap: { xs: 1, sm: 1.5 } }}>
+              {item.menu.map((menu, index) => (
+                <Stack key={index} direction="row" spacing={1} alignItems="center">
+                  {menu.icon && (
+                    <SvgIcon
+                      name={menu.icon}
+                      size={16}
+                      color={item.id === 'legal' ? 'text.disabled' : 'primary.main'}
+                    />
+                  )}
+                  <Link
+                    component={NextLink}
+                    href={menu.link.href}
+                    variant="body2"
+                    color={isMenuDesign ? 'text.primary' : 'text.secondary'}
+                    sx={{
+                      fontWeight: isMenuDesign ? 500 : 400,
+                      '&:hover': { color: 'primary.main' }
+                    }}
+                    {...menu.link}
                   >
                     {menu.label}
-                  </MenuItem>
-                ))}
-            </MenuList>
+                  </Link>
+                </Stack>
+              ))}
+            </Stack>
           </Stack>
         </Grid>
       ))}
@@ -132,4 +148,7 @@ export default function Sitemap({ list, isMenuDesign }) {
   );
 }
 
-Sitemap.propTypes = { list: PropTypes.array, isMenuDesign: PropTypes.bool };
+Sitemap.propTypes = {
+  list: PropTypes.array.isRequired,
+  isMenuDesign: PropTypes.bool
+};
