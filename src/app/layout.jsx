@@ -9,9 +9,12 @@ import './globals.css';
 // @mui
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 // @project
 import ProviderWrapper from './ProviderWrapper';
+import theme from '@/theme';
 
 // @types
 
@@ -31,9 +34,12 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <AppRouterCacheProvider>
-            <ProviderWrapper>
-              {children}
-            </ProviderWrapper>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <ProviderWrapper>
+                {children}
+              </ProviderWrapper>
+            </ThemeProvider>
           </AppRouterCacheProvider>
         </AuthProvider>
         {gaId && <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 // @project
 import Loader from '@/components/Loader';
-import ThemeProvider from '@/components/ThemeProvider';
 import { ConfigProvider } from '@/contexts/ConfigContext';
 
 // @types
@@ -32,9 +31,7 @@ export default function ProviderWrapper({ children }) {
 
   return (
     <ConfigProvider>
-      <ThemeProvider>
-        {children}
-      </ThemeProvider>
+      {children}
     </ConfigProvider>
   );
 }

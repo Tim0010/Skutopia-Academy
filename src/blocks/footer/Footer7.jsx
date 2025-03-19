@@ -44,12 +44,12 @@ const data = [
       {
         icon: 'tabler-target',
         label: 'Our Mission',
-        link: { href: '/about' }
+        link: { href: '/about/mission' }
       },
       {
         icon: 'tabler-users',
         label: 'Our Team',
-        link: { href: '/team' }
+        link: { href: '/about/team' }
       },
       {
         icon: 'tabler-mail',

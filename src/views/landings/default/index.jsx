@@ -78,7 +78,7 @@ export default function Main() {
   return (
     <>
       <Hero17
-        chip={{ 
+        chip={{
           label: 'Skutopia Academy',
           icon: (
             <Box sx={{ position: 'relative', display: 'inline-flex', mr: 1 }}>
@@ -110,7 +110,7 @@ export default function Main() {
         image="/assets/images/hero/stem-education.png"
         imageAlt="STEM Education"
         listData={[
-          { 
+          {
             title: 'Science',
             image: '/assets/icons/laboratory_2387545.svg',
             icon: (
@@ -138,7 +138,7 @@ export default function Main() {
               </Box>
             )
           },
-          { 
+          {
             title: 'Technology',
             image: '/assets/icons/technology_3206042.svg',
             icon: (
@@ -166,7 +166,7 @@ export default function Main() {
               </Box>
             )
           },
-          { 
+          {
             title: 'Engineering',
             image: '/assets/icons/engineering_2861721.svg',
             icon: (
@@ -194,7 +194,7 @@ export default function Main() {
               </Box>
             )
           },
-          { 
+          {
             title: 'Mathematics',
             image: '/assets/icons/math.svg',
             icon: (
@@ -224,7 +224,7 @@ export default function Main() {
           }
         ]}
       />
-      
+
       <LearningPaths
         heading="Welcome to Skutopia Academy"
         subheading="Explore our interactive platform designed to enhance STEM learning in Zambia through engaging content and personalized paths."
@@ -390,10 +390,10 @@ export default function Main() {
                       href: '/courses',
                       position: { top: 0, left: '5%' }
                     },
-          {
-            id: 'flashcards',
-            title: 'Flashcards',
-            icon: 'tabler-cards',
+                    {
+                      id: 'flashcards',
+                      title: 'Flashcards',
+                      icon: 'tabler-cards',
                       color: '#2196f3',
                       bgColor: '#e3f2fd',
                       description: 'Quick concept review',
@@ -403,7 +403,7 @@ export default function Main() {
                     {
                       id: 'quizzes',
                       title: 'Quizzes',
-            icon: 'tabler-checklist',
+                      icon: 'tabler-checklist',
                       color: '#ff9800',
                       bgColor: '#fff3e0',
                       description: 'Test your knowledge',
@@ -672,23 +672,23 @@ export default function Main() {
               <Box sx={{ position: 'relative', height: '500px', width: '100%' }}>
                 {[
                   {
-                    name: 'Sarah Johnson',
+                    name: 'Sarah',
                     university: 'Harvard University',
                     field: 'Biology',
                     quote: "I love helping students discover their passion for science and guiding them through complex concepts.",
                     color: '#4CAF50',
-                    avatar: '/assets/images/user/avatar1.png',
+                    avatar: '/assets/images/mentors/sarah.jpg',
                     top: '0px',
                     right: '5%',
                     zIndex: 4
                   },
                   {
-                    name: 'Michael Chen',
+                    name: 'Michael',
                     university: 'MIT',
                     field: 'Computer Science',
                     quote: "Technology is changing our world. I'm here to help you be part of that change.",
                     color: '#2196F3',
-                    avatar: '/assets/images/user/avatar2.png',
+                    avatar: '/assets/images/mentors/micheal.jpg',
                     top: '120px',
                     right: '10%',
                     zIndex: 3
@@ -699,7 +699,7 @@ export default function Main() {
                     field: 'Engineering',
                     quote: "Engineering is about solving real problems. Let me show you how to think like an engineer.",
                     color: '#FF9800',
-                    avatar: '/assets/images/user/avatar5.png',
+                    avatar: '/assets/images/mentors/priya.jpg',
                     top: '240px',
                     right: '15%',
                     zIndex: 2
@@ -710,7 +710,7 @@ export default function Main() {
                     field: 'Mathematics',
                     quote: "Mathematics is the language of the universe. I'll help you become fluent in it.",
                     color: '#9C27B0',
-                    avatar: '/assets/images/user/avatar3.png',
+                    avatar: '/assets/images/mentors/james.jpg',
                     top: '360px',
                     right: '20%',
                     zIndex: 1
@@ -1137,7 +1137,7 @@ export default function Main() {
                             }}
                           >
                             {feature.title}
-        </Typography>
+                          </Typography>
                           <Typography
                             variant="body1"
                             sx={{
@@ -1146,7 +1146,7 @@ export default function Main() {
                             }}
                           >
                             {feature.description}
-        </Typography>
+                          </Typography>
                         </Box>
                       </Box>
                     </motion.div>
@@ -1189,7 +1189,7 @@ export default function Main() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7 }}
-                        sx={{
+                  sx={{
                     position: 'absolute',
                     top: '5%',
                     right: '10%',
@@ -1316,11 +1316,11 @@ export default function Main() {
                       </Box>
                     </motion.div>
                   ))}
-                    </Box>
-                      </Box>
-              </Grid>
-        </Grid>
-      </Container>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
     </>
   );

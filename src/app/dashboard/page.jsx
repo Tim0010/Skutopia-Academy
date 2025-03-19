@@ -78,7 +78,7 @@ export default function DashboardPage() {
                 setCourses(data || []);
             }
         }
-        
+
         fetchCourses();
     }, []);
 
@@ -108,59 +108,59 @@ export default function DashboardPage() {
     return (
         <>
             <Container maxWidth="lg" sx={{ mt: 2 }}>
-                        {/* Header */}
-                            <motion.div
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                <Paper
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Paper
                         elevation={0}
-                                    sx={{
+                        sx={{
                             p: 3,
                             mb: 4,
                             borderRadius: 2,
                             backgroundColor: 'background.paper',
                             border: '1px solid',
                             borderColor: 'divider',
-                                        display: 'flex',
-                                        flexDirection: { xs: 'column', sm: 'row' },
-                                        alignItems: { xs: 'flex-start', sm: 'center' },
-                                        justifyContent: 'space-between',
-                                        gap: 2
-                                    }}
-                                >
-                                    <Box>
+                            display: 'flex',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                            alignItems: { xs: 'flex-start', sm: 'center' },
+                            justifyContent: 'space-between',
+                            gap: 2
+                        }}
+                    >
+                        <Box>
                             <Typography variant="h4" fontWeight="500" gutterBottom>
-                                            Welcome, {user?.user_metadata?.first_name || 'User'}!
-                                        </Typography>
-                                        <Typography variant="body1" color="text.secondary">
-                                            {user?.user_metadata?.role === 'student'
-                                                ? 'Continue your learning journey'
-                                                : 'Manage your mentorship activities'}
-                                        </Typography>
-                                    </Box>
+                                Welcome, {user?.user_metadata?.first_name || 'User'}!
+                            </Typography>
+                            <Typography variant="body1" color="text.secondary">
+                                {user?.user_metadata?.role === 'student'
+                                    ? 'Continue your learning journey'
+                                    : 'Manage your mentorship activities'}
+                            </Typography>
+                        </Box>
 
                         <Box sx={{ display: 'flex', gap: 2 }}>
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        onClick={handleSignOut}
-                                        startIcon={<SvgIcon name="tabler-logout" size={20} />}
-                                        sx={{
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                onClick={handleSignOut}
+                                startIcon={<SvgIcon name="tabler-logout" size={20} />}
+                                sx={{
                                     borderRadius: 1.5,
                                     py: 1
-                                        }}
-                                    >
-                                        Sign Out
-                                    </Button>
+                                }}
+                            >
+                                Sign Out
+                            </Button>
                         </Box>
-                                </Paper>
-                            </motion.div>
+                    </Paper>
+                </motion.div>
 
                 <Grid container spacing={3}>
-                    {/* Left Column */}
-                    <Grid item xs={12} md={8}>
+                    {/* Main Content Column - Full Width */}
+                    <Grid item xs={12}>
                         {/* Stats */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -199,73 +199,73 @@ export default function DashboardPage() {
                                     }
                                 ].map((stat, index) => (
                                     <Grid item xs={6} sm={3} key={index}>
-                                            <Card
+                                        <Card
                                             elevation={0}
-                                                sx={{
+                                            sx={{
                                                 borderRadius: 2,
                                                 border: '1px solid',
                                                 borderColor: 'divider',
-                                                    height: '100%',
+                                                height: '100%',
                                                 transition: 'all 0.2s ease',
-                                                    '&:hover': {
+                                                '&:hover': {
                                                     transform: 'translateY(-4px)',
                                                     boxShadow: '0 6px 16px rgba(0,0,0,0.08)'
-                                                    }
-                                                }}
-                                            >
+                                                }
+                                            }}
+                                        >
                                             <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                                 <Stack spacing={1}>
-                                                        <Box
-                                                            sx={{
+                                                    <Box
+                                                        sx={{
                                                             width: 36,
                                                             height: 36,
                                                             borderRadius: 1.5,
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                justifyContent: 'center',
-                                                                bgcolor: stat.bgColor,
-                                                                color: stat.color
-                                                            }}
-                                                        >
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            bgcolor: stat.bgColor,
+                                                            color: stat.color
+                                                        }}
+                                                    >
                                                         <SvgIcon name={stat.icon} size={20} />
-                                                        </Box>
+                                                    </Box>
                                                     <Typography variant="h5" fontWeight="600">
-                                                                {stat.value}
-                                                            </Typography>
+                                                        {stat.value}
+                                                    </Typography>
                                                     <Typography variant="caption" color="text.secondary">
-                                                                {stat.title}
-                                                            </Typography>
-                                                    </Stack>
-                                                </CardContent>
-                                            </Card>
+                                                        {stat.title}
+                                                    </Typography>
+                                                </Stack>
+                                            </CardContent>
+                                        </Card>
                                     </Grid>
                                 ))}
                             </Grid>
                         </motion.div>
 
                         {/* Recent Activity */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                            >
-                                <Paper
+                        >
+                            <Paper
                                 elevation={0}
-                                    sx={{
-                                        p: 3,
+                                sx={{
+                                    p: 3,
                                     mb: 3,
                                     borderRadius: 2,
                                     border: '1px solid',
                                     borderColor: 'divider'
                                 }}
                             >
-                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                                    <Typography variant="h6" fontWeight="500">
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                                    <Typography variant="h6" fontWeight="600">
                                         Recent Activity
                                     </Typography>
-                                    <Button 
-                                        variant="text" 
-                                        color="primary" 
+                                    <Button
+                                        variant="text"
+                                        color="primary"
                                         size="small"
                                         endIcon={<SvgIcon name="tabler-chevron-right" size={16} />}
                                     >
@@ -273,82 +273,11 @@ export default function DashboardPage() {
                                     </Button>
                                 </Box>
 
-                                <Divider sx={{ mb: 2 }} />
-
-                                <Stack spacing={2}>
-                                        {[
-                                            {
-                                                title: 'Completed Algebra Quiz',
-                                                time: '2 hours ago',
-                                                icon: 'tabler-writing',
-                                                color: '#2196F3'
-                                            },
-                                            {
-                                                title: 'Watched Physics Video Lesson',
-                                                time: 'Yesterday',
-                                                icon: 'tabler-video',
-                                                color: '#FF9800'
-                                            },
-                                            {
-                                                title: 'Joined Chemistry Study Group',
-                                                time: '2 days ago',
-                                                icon: 'tabler-users',
-                                                color: '#4CAF50'
-                                            },
-                                            {
-                                                title: 'Earned "Math Whiz" Badge',
-                                                time: '3 days ago',
-                                                icon: 'tabler-award',
-                                                color: '#9C27B0'
-                                            }
-                                        ].map((activity, index) => (
-                                            <Box
-                                                key={index}
-                                                sx={{
-                                                    p: 2,
-                                                borderRadius: 1.5,
-                                                    bgcolor: 'background.neutral',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                gap: 2,
-                                                transition: 'all 0.2s ease',
-                                                '&:hover': {
-                                                    bgcolor: 'action.hover'
-                                                }
-                                                }}
-                                            >
-                                                <Box
-                                                    sx={{
-                                                    width: 36,
-                                                    height: 36,
-                                                        borderRadius: '50%',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                    bgcolor: `${activity.color}15`,
-                                                        color: activity.color
-                                                    }}
-                                                >
-                                                <SvgIcon name={activity.icon} size={18} />
-                                                </Box>
-                                                <Box sx={{ flex: 1 }}>
-                                                <Typography variant="body2" fontWeight="500">
-                                                        {activity.title}
-                                                    </Typography>
-                                                    <Typography variant="caption" color="text.secondary">
-                                                        {activity.time}
-                                                    </Typography>
-                                                </Box>
-                                            <IconButton size="small">
-                                                <SvgIcon name="tabler-dots-vertical" size={16} />
-                                            </IconButton>
-                                        </Box>
-                                    ))}
-                                </Stack>
+                                {/* Activity items would go here */}
                             </Paper>
                         </motion.div>
 
-                        {/* Upcoming Mentorship */}
+                        {/* My Flashcards */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -358,322 +287,44 @@ export default function DashboardPage() {
                                 elevation={0}
                                 sx={{
                                     p: 3,
-                                    borderRadius: 2,
-                                    border: '1px solid',
-                                    borderColor: 'divider'
-                                }}
-                            >
-                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                                    <Typography variant="h6" fontWeight="500">
-                                        Upcoming Mentorship Sessions
-                                    </Typography>
-                                    <Button 
-                                        variant="outlined" 
-                                        color="primary" 
-                                        size="small"
-                                        startIcon={<SvgIcon name="tabler-plus" size={16} />}
-                                        sx={{ borderRadius: 1.5 }}
-                                    >
-                                        New Session
-                                    </Button>
-                                </Box>
-
-                                <Divider sx={{ mb: 2 }} />
-
-                                {upcomingSessions.length > 0 ? (
-                                    <Stack spacing={2}>
-                                        {upcomingSessions.map(session => (
-                                            <Box 
-                                                key={session.id} 
-                                                sx={{ 
-                                                    p: 2, 
-                                                    borderRadius: 1.5, 
-                                                    bgcolor: 'background.neutral',
-                                                    border: '1px solid',
-                                                    borderColor: 'divider',
-                                                    transition: 'all 0.2s ease',
-                                                    '&:hover': {
-                                                        bgcolor: 'action.hover'
-                                                    }
-                                                }}
-                                            >
-                                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                                                    <Typography variant="subtitle2">
-                                                        Session with {session.mentor_id}
-                                                    </Typography>
-                                                    <Chip 
-                                                        label="Upcoming" 
-                                                        size="small" 
-                                                        color="primary" 
-                                                        variant="outlined"
-                                                        sx={{ borderRadius: 1 }}
-                                                    />
-                                                </Box>
-                                                <Typography variant="caption" color="text.secondary">
-                                                    {new Date(session.scheduled_at).toLocaleString()}
-                                                </Typography>
-                                            </Box>
-                                        ))}
-                                    </Stack>
-                                ) : (
-                                    <Box sx={{ py: 4, textAlign: 'center' }}>
-                                        <SvgIcon name="tabler-calendar" size={48} sx={{ color: 'text.disabled', mb: 2 }} />
-                                        <Typography color="text.secondary">No upcoming sessions</Typography>
-                                        <Button 
-                                            variant="outlined"
-                                            color="primary"
-                                            size="small"
-                                            sx={{ mt: 2, borderRadius: 1.5 }}
-                                        >
-                                            Schedule a Session
-                                        </Button>
-                                    </Box>
-                                )}
-                                </Paper>
-                            </motion.div>
-                        </Grid>
-
-                    {/* Right Column */}
-                        <Grid item xs={12} md={4}>
-                        {/* Profile Card */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            >
-                                <Paper
-                                elevation={0}
-                                    sx={{
-                                        p: 3,
-                                    mb: 3,
-                                    borderRadius: 2,
-                                    border: '1px solid',
-                                    borderColor: 'divider'
-                                    }}
-                                >
-                                    <Box sx={{ textAlign: 'center', mb: 3 }}>
-                                        <Avatar
-                                            sx={{
-                                                width: 80,
-                                                height: 80,
-                                                mx: 'auto',
-                                                mb: 2,
-                                                bgcolor: 'primary.main',
-                                            }}
-                                        >
-                                            {user?.user_metadata?.first_name?.charAt(0) || user?.email?.charAt(0) || 'U'}
-                                        </Avatar>
-                                    <Typography variant="h6" fontWeight="500">
-                                            {user?.user_metadata?.first_name} {user?.user_metadata?.last_name}
-                                        </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                            {user?.email}
-                                        </Typography>
-                                    <Chip
-                                        label={user?.user_metadata?.role === 'student' ? 'Student' : 'Mentor'}
-                                        color={user?.user_metadata?.role === 'student' ? 'primary' : 'success'}
-                                        size="small"
-                                        variant="outlined"
-                                        sx={{ borderRadius: 1 }}
-                                    />
-                                    </Box>
-
-                                <Divider sx={{ mb: 2 }} />
-
-                                    <Stack spacing={2}>
-                                        <Button
-                                            fullWidth
-                                            variant="outlined"
-                                            color="primary"
-                                        startIcon={<SvgIcon name="tabler-user" size={18} />}
-                                        sx={{ borderRadius: 1.5, py: 1 }}
-                                        >
-                                            Edit Profile
-                                        </Button>
-                                        <Button
-                                            fullWidth
-                                            variant="outlined"
-                                            color="primary"
-                                        startIcon={<SvgIcon name="tabler-settings" size={18} />}
-                                        sx={{ borderRadius: 1.5, py: 1 }}
-                                        >
-                                            Account Settings
-                                        </Button>
-                                    </Stack>
-                                </Paper>
-                            </motion.div>
-
-                        {/* Flashcards */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                            <Paper
-                                elevation={0}
-                                sx={{
-                                    p: 3,
                                     mb: 3,
                                     borderRadius: 2,
                                     border: '1px solid',
                                     borderColor: 'divider'
                                 }}
                             >
-                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                                    <Typography variant="h6" fontWeight="500">
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                                    <Typography variant="h6" fontWeight="600">
                                         My Flashcards
                                     </Typography>
-                                    <Button 
-                                        variant="text" 
+                                    <Button
+                                        variant="text"
+                                        color="primary"
                                         size="small"
                                         endIcon={<SvgIcon name="tabler-chevron-right" size={16} />}
-                                        onClick={() => router.push('/flashcards')}
                                     >
                                         View All
                                     </Button>
                                 </Box>
 
-                                <Divider sx={{ mb: 2 }} />
-
-                                {decks.length > 0 ? (
-                                    <Stack spacing={2}>
-                                        {decks.slice(0, 3).map((deck) => (
-                                            <Box 
-                                                key={deck.id} 
-                                                sx={{ 
-                                                    p: 2, 
-                                                    borderRadius: 1.5, 
-                                                    bgcolor: 'background.neutral',
-                                                    border: '1px solid',
-                                                    borderColor: 'divider',
-                                                    cursor: 'pointer',
-                                                    transition: 'all 0.2s ease',
-                                                    '&:hover': {
-                                                        bgcolor: 'action.hover',
-                                                        transform: 'translateY(-2px)'
-                                                    }
-                                                }}
-                                                onClick={() => router.push(`/flashcards/${deck.id}`)}
-                                            >
-                                                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                                                    {deck.title}
-                                                </Typography>
-                                                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-                                                    {deck.description}
-                                                </Typography>
-                                                <Chip 
-                                                    label={deck.subject}
-                                                    size="small"
-                                                    color="primary"
-                                                    variant="outlined"
-                                                    sx={{ borderRadius: 1 }}
-                                                />
-                                            </Box>
-                                        ))}
+                                {/* Flashcard deck list or empty state */}
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 4 }}>
+                                    <Stack spacing={2} alignItems="center">
+                                        <SvgIcon name="tabler-cards" size={48} color="#9E9E9E" />
+                                        <Typography variant="body1" color="text.secondary">
+                                            No flashcard decks yet
+                                        </Typography>
                                     </Stack>
-                                ) : (
-                                    <Box sx={{ py: 4, textAlign: 'center' }}>
-                                        <SvgIcon name="tabler-cards" size={48} sx={{ color: 'text.disabled', mb: 2 }} />
-                                        <Typography color="text.secondary">No flashcard decks yet</Typography>
-                                        <Button 
-                                            variant="outlined"
-                                            color="primary"
-                                            size="small"
-                                            sx={{ mt: 2, borderRadius: 1.5 }}
-                                            onClick={() => setIsCreating(true)}
-                                        >
-                                            Create a Deck
-                                        </Button>
-                                    </Box>
-                                )}
-                            </Paper>
-                        </motion.div>
-
-                        {/* Scholarships */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                        >
-                            <Paper
-                                elevation={0}
-                                sx={{
-                                    p: 3,
-                                    borderRadius: 2,
-                                    border: '1px solid',
-                                    borderColor: 'divider'
-                                }}
-                            >
-                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                                    <Typography variant="h6" fontWeight="500">
-                                        Available Scholarships
-                                    </Typography>
-                                    <Button 
-                                        variant="text" 
-                                        size="small"
-                                        endIcon={<SvgIcon name="tabler-chevron-right" size={16} />}
-                                        onClick={() => router.push('/scholarships')}
-                                    >
-                                        View All
-                                    </Button>
                                 </Box>
-
-                                <Divider sx={{ mb: 2 }} />
-
-                                {scholarships.length > 0 ? (
-                                    <Stack spacing={2}>
-                                        {scholarships.slice(0, 2).map(scholarship => (
-                                            <Box 
-                                                key={scholarship.id} 
-                                                sx={{ 
-                                                    p: 2, 
-                                                    borderRadius: 1.5, 
-                                                    bgcolor: 'background.neutral',
-                                                    border: '1px solid',
-                                                    borderColor: 'divider',
-                                                    transition: 'all 0.2s ease',
-                                                    '&:hover': {
-                                                        bgcolor: 'action.hover'
-                                                    }
-                                                }}
-                                            >
-                                                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                                                    {scholarship.title}
-                                                </Typography>
-                                                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                                    <Typography variant="caption" color="success.main" fontWeight="500">
-                                                        ${scholarship.amount}
-                                                    </Typography>
-                                                    <Typography variant="caption" color="text.secondary">
-                                                        Deadline: {new Date(scholarship.deadline).toLocaleDateString()}
-                                                    </Typography>
-                                                </Box>
-                                                <Button 
-                                                    variant="outlined" 
-                                                    size="small" 
-                                                    fullWidth
-                                                    sx={{ mt: 1, borderRadius: 1.5 }}
-                                                >
-                                                    Apply Now
-                                                </Button>
-                                            </Box>
-                                        ))}
-                                    </Stack>
-                                ) : (
-                                    <Box sx={{ py: 4, textAlign: 'center' }}>
-                                        <SvgIcon name="tabler-award" size={48} sx={{ color: 'text.disabled', mb: 2 }} />
-                                        <Typography color="text.secondary">No scholarships available</Typography>
-                                    </Box>
-                                )}
                             </Paper>
                         </motion.div>
                     </Grid>
-                    </Grid>
-                </Container>
+                </Grid>
+            </Container>
 
             {/* Create Deck Dialog */}
-            <Dialog 
-                open={isCreating} 
+            <Dialog
+                open={isCreating}
                 onClose={() => setIsCreating(false)}
                 maxWidth="sm"
                 fullWidth
@@ -727,14 +378,14 @@ export default function DashboardPage() {
                 </DialogContent>
                 <Divider />
                 <DialogActions sx={{ px: 3, py: 2 }}>
-                    <Button 
-                        onClick={() => setIsCreating(false)} 
+                    <Button
+                        onClick={() => setIsCreating(false)}
                         sx={{ borderRadius: 1.5 }}
                     >
                         Cancel
                     </Button>
-                    <Button 
-                        variant="contained" 
+                    <Button
+                        variant="contained"
                         onClick={handleCreateDeck}
                         disabled={!newDeckData.title || !newDeckData.subject}
                         sx={{ borderRadius: 1.5 }}

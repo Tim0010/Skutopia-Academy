@@ -28,19 +28,20 @@ export default function RegisterSuccessPage() {
     const [countdown, setCountdown] = useState(5);
 
     useEffect(() => {
+        // Redirect when countdown reaches zero
+        if (countdown === 0) {
+            router.push('/auth/login');
+        }
+    }, [countdown, router]);
+
+    useEffect(() => {
+        // Separate timer logic from navigation
         const timer = setInterval(() => {
-            setCountdown((prev) => {
-                if (prev <= 1) {
-                    clearInterval(timer);
-                    router.push('/auth/login');
-                    return 0;
-                }
-                return prev - 1;
-            });
+            setCountdown((prev) => (prev <= 1 ? 0 : prev - 1));
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [router]);
+    }, []);
 
     return (
         <Box
@@ -133,7 +134,7 @@ export default function RegisterSuccessPage() {
                                     </Box>
 
                                     <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-                                        You will be redirected to the login page in {countdown} seconds...
+                                        You will be redirected to the login page in {countdown} {countdown === 1 ? 'second' : 'seconds'}...
                                     </Typography>
 
                                     <Stack spacing={2}>
