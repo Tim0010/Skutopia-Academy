@@ -66,27 +66,27 @@ const data = [
       {
         icon: 'tabler-book',
         label: 'Study Materials',
-        link: { href: '/resources' }
+        link: { href: '/resources/study-materials' }
       },
       {
         icon: 'tabler-writing',
         label: 'Practice Tests',
-        link: { href: '/practice' }
+        link: { href: '/resources/practice-tests' }
       },
       {
         icon: 'tabler-route',
         label: 'Learning Paths',
-        link: { href: '/paths' }
+        link: { href: '/resources/learning-paths' }
       },
       {
         icon: 'tabler-award',
         label: 'Scholarship Opportunities',
-        link: { href: '/scholarships' }
+        link: { href: '/resources/scholarships' }
       },
       {
         icon: 'tabler-user-search',
         label: 'Find a Mentor',
-        link: { href: '/mentorship' }
+        link: { href: '/resources/mentors' }
       }
     ]
   },
@@ -97,15 +97,15 @@ const data = [
     menu: [
       {
         label: 'Terms of Service',
-        link: { href: '/terms' }
+        link: { href: '/legal/terms' }
       },
       {
         label: 'Privacy Policy',
-        link: { href: '/privacy' }
+        link: { href: '/legal/privacy' }
       },
       {
         label: 'Cookie Policy',
-        link: { href: '/cookies' }
+        link: { href: '/legal/cookies' }
       }
     ]
   }

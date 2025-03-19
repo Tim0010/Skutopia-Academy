@@ -32,6 +32,8 @@ import SvgIcon from '@/components/SvgIcon';
 import { useAuth } from '@/contexts/AuthContext';
 import { getCourseById, getLessonById, submitQuizAttempt, updateLessonProgress } from '@/utils/supabaseClient';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import AITutor from '@/components/AITutor';
+import PersonalizedLearningPathCard from '@/components/PersonalizedLearningPathCard';
 
 export default function CourseViewerPage() {
     const router = useRouter();
@@ -146,6 +148,14 @@ export default function CourseViewerPage() {
                         {course?.description}
                     </Typography>
                 </Box>
+
+                {/* Personalized Learning Path */}
+                {course && (
+                    <PersonalizedLearningPathCard 
+                        courseId={courseId} 
+                        gradeLevel={course.grade_level}
+                    />
+                )}
 
                 <Box sx={{ display: 'flex', gap: 4 }}>
                     {/* Lesson List */}
@@ -271,6 +281,15 @@ export default function CourseViewerPage() {
                     </Box>
                 </Box>
             </Container>
+
+            {/* AI Tutor component */}
+            {currentLesson && (
+                <AITutor 
+                    courseId={courseId} 
+                    topic={currentLesson.title} 
+                    gradeLevel={course?.grade_level || 8}
+                />
+            )}
         </ProtectedRoute>
     );
 } 

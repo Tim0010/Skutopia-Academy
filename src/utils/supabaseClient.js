@@ -119,16 +119,64 @@ export const getQuizById = async (quizId) => {
 export const submitQuizAttempt = async (userId, quizId, answers, score, timeTaken) => {
     return await supabase
         .from('quiz_attempts')
-        .insert([
-            {
-                user_id: userId,
-                quiz_id: quizId,
-                answers,
-                score,
-                time_taken: timeTaken,
-                completed_at: new Date()
-            }
-        ]);
+        .insert({
+            user_id: userId,
+            quiz_id: quizId,
+            answers,
+            score,
+            time_taken: timeTaken
+        });
+};
+
+/**
+ * Create a new quiz
+ * @param {string} lessonId - The lesson ID this quiz belongs to
+ * @param {string} title - Quiz title
+ * @param {string} description - Quiz description
+ * @param {number} timeLimit - Time limit in seconds
+ * @param {number} passingScore - Passing score percentage
+ * @returns {Promise} - Supabase response
+ */
+export const createQuiz = async (lessonId, title, description, timeLimit, passingScore) => {
+    return await supabase
+        .from('quizzes')
+        .insert({
+            lesson_id: lessonId,
+            title,
+            description,
+            time_limit: timeLimit,
+            passing_score: passingScore
+        })
+        .select()
+        .single();
+};
+
+/**
+ * Create multiple quiz questions
+ * @param {string} quizId - The quiz ID
+ * @param {Array} questions - Array of question objects
+ * @returns {Promise} - Supabase response
+ */
+export const createQuizQuestions = async (quizId, questions) => {
+    if (!Array.isArray(questions) || questions.length === 0) {
+        return { error: 'Invalid questions data' };
+    }
+    
+    // Format questions for database
+    const formattedQuestions = questions.map((question, index) => ({
+        quiz_id: quizId,
+        question: question.question,
+        question_type: question.type || 'multiple_choice',
+        options: JSON.stringify(question.options || []),
+        correct_answer: JSON.stringify(question.correct_answer || question.answer),
+        explanation: question.explanation || '',
+        points: question.points || 1,
+        order_number: index
+    }));
+    
+    return await supabase
+        .from('quiz_questions')
+        .insert(formattedQuestions);
 };
 
 // Flashcard Functions
@@ -181,14 +229,27 @@ export const createFlashcardDeck = async (userId, title, description, subject, i
 export const addFlashcard = async (deckId, frontContent, backContent, orderNumber) => {
     return await supabase
         .from('flashcards')
-        .insert([
-            {
-                deck_id: deckId,
-                front_content: frontContent,
-                back_content: backContent,
-                order_number: orderNumber
-            }
-        ]);
+        .insert({
+            deck_id: deckId,
+            front_content: frontContent,
+            back_content: backContent,
+            order_number: orderNumber || 0
+        });
+};
+
+/**
+ * Create multiple flashcards at once
+ * @param {Array} flashcards - Array of flashcard objects
+ * @returns {Promise} - Supabase response
+ */
+export const createFlashcards = async (flashcards) => {
+    if (!Array.isArray(flashcards) || flashcards.length === 0) {
+        return { error: 'Invalid flashcards data' };
+    }
+    
+    return await supabase
+        .from('flashcards')
+        .insert(flashcards);
 };
 
 export const updateFlashcardProgress = async (userId, flashcardId, confidenceLevel) => {
@@ -227,19 +288,113 @@ export const updateFlashcardProgress = async (userId, flashcardId, confidenceLev
 
 // Mentorship Functions
 export const getUserMentorshipSessions = async (userId) => {
-    return await supabase
-        .from('mentorship_sessions')
-        .select(`
-            *,
-            mentors:mentor_id(id, user_metadata),
-            students:student_id(id, user_metadata)
-        `)
-        .or(`mentor_id.eq.${userId},student_id.eq.${userId}`)
-        .gte('session_date', new Date().toISOString())
-        .order('session_date');
+    try {
+        // First try to fetch with the nested select
+        const { data, error } = await supabase
+            .from('mentorship_sessions')
+            .select(`
+                *,
+                mentors:mentor_id(id, user_metadata),
+                students:student_id(id, user_metadata)
+            `)
+            .or(`mentor_id.eq.${userId},student_id.eq.${userId}`)
+            .gte('session_date', new Date().toISOString())
+            .order('session_date');
+        
+        // If this works, return the data
+        if (!error) {
+            return { data, error: null };
+        }
+        
+        console.warn('Nested select for mentorship sessions failed, using fallback approach:', error);
+        
+        // Fallback approach if the nested select fails
+        const { data: sessionData, error: sessionError } = await supabase
+            .from('mentorship_sessions')
+            .select('*')
+            .or(`mentor_id.eq.${userId},student_id.eq.${userId}`)
+            .gte('session_date', new Date().toISOString())
+            .order('session_date');
+        
+        if (sessionError) {
+            return { data: null, error: sessionError };
+        }
+        
+        // If we have sessions, get the related mentor and student data
+        if (sessionData && sessionData.length > 0) {
+            // Extract all mentor and student IDs
+            const mentorIds = sessionData.map(s => s.mentor_id).filter(id => id);
+            const studentIds = sessionData.map(s => s.student_id).filter(id => id);
+            
+            // Get mentor data
+            const mentorPromise = mentorIds.length > 0 ? supabase
+                .from('mentors')
+                .select('id, user_id')
+                .in('id', mentorIds) : Promise.resolve({ data: [] });
+            
+            // Get student data (from auth.users)
+            const studentPromise = studentIds.length > 0 ? supabase.auth
+                .admin.listUsers({ filter: studentIds.map(id => `id eq "${id}"`).join(' or ') })
+                .catch(() => ({ data: { users: [] } })) : Promise.resolve({ data: { users: [] } });
+            
+            // Wait for both queries
+            const [mentorResult, studentResult] = await Promise.all([mentorPromise, studentPromise]);
+            
+            // Get user data for mentors
+            const mentorUserIds = mentorResult.data?.map(m => m.user_id).filter(id => id) || [];
+            const mentorUserPromise = mentorUserIds.length > 0 ? supabase.auth
+                .admin.listUsers({ filter: mentorUserIds.map(id => `id eq "${id}"`).join(' or ') })
+                .catch(() => ({ data: { users: [] } })) : Promise.resolve({ data: { users: [] } });
+            
+            const mentorUserResult = await mentorUserPromise;
+            
+            // Create lookup maps
+            const mentorMap = mentorResult.data?.reduce((map, mentor) => {
+                map[mentor.id] = mentor;
+                return map;
+            }, {}) || {};
+            
+            const mentorUserMap = mentorUserResult.data?.users?.reduce((map, user) => {
+                map[user.id] = user;
+                return map;
+            }, {}) || {};
+            
+            const studentMap = studentResult.data?.users?.reduce((map, user) => {
+                map[user.id] = user;
+                return map;
+            }, {}) || {};
+            
+            // Combine the data
+            const enrichedSessions = sessionData.map(session => {
+                const mentor = mentorMap[session.mentor_id];
+                const mentorUser = mentor ? mentorUserMap[mentor.user_id] : null;
+                const student = studentMap[session.student_id];
+                
+                return {
+                    ...session,
+                    mentors: mentor ? {
+                        id: mentor.id,
+                        user_metadata: mentorUser?.user_metadata || {}
+                    } : null,
+                    students: student ? {
+                        id: student.id,
+                        user_metadata: student.user_metadata || {}
+                    } : null
+                };
+            });
+            
+            return { data: enrichedSessions, error: null };
+        }
+        
+        return { data: sessionData || [], error: null };
+        
+    } catch (error) {
+        console.error('Error in getUserMentorshipSessions:', error);
+        return { data: null, error };
+    }
 };
 
-export const createMentorshipSession = async (mentorId, studentId, sessionDate, sessionTopic) => {
+export const createMentorshipSession = async (mentorId, studentId, sessionDate, duration, notes) => {
     return await supabase
         .from('mentorship_sessions')
         .insert([
@@ -247,7 +402,9 @@ export const createMentorshipSession = async (mentorId, studentId, sessionDate, 
                 mentor_id: mentorId,
                 student_id: studentId,
                 session_date: sessionDate,
-                session_topic: sessionTopic
+                duration: duration || 30, // Default 30 minutes
+                status: 'scheduled',
+                notes: notes || ''
             }
         ]);
 };

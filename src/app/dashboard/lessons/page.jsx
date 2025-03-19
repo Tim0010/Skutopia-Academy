@@ -62,7 +62,10 @@ export default function LessonsPage() {
         try {
             const { data, error } = await supabase
                 .from('lessons')
-                .select('*, courses(title, id)')
+                .select(`
+                    *,
+                    course:courses(id, title)
+                `)
                 .order('course_id', { ascending: true })
                 .order('order_number', { ascending: true });
 
@@ -96,7 +99,8 @@ export default function LessonsPage() {
             const { data, error } = await supabase
                 .from('user_bookmarks')
                 .select('lesson_id')
-                .eq('user_id', user.id);
+                .eq('user_id', user.id)
+                .eq('bookmark_type', 'lesson');
 
             if (error) throw error;
             setBookmarkedLessons(data.map(item => item.lesson_id) || []);
@@ -115,7 +119,8 @@ export default function LessonsPage() {
                     .from('user_bookmarks')
                     .delete()
                     .eq('user_id', user.id)
-                    .eq('lesson_id', lessonId);
+                    .eq('lesson_id', lessonId)
+                    .eq('bookmark_type', 'lesson');
 
                 setBookmarkedLessons(prev => prev.filter(id => id !== lessonId));
             } else {
@@ -125,6 +130,7 @@ export default function LessonsPage() {
                     .insert([{
                         user_id: user.id,
                         lesson_id: lessonId,
+                        bookmark_type: 'lesson',
                         created_at: new Date().toISOString()
                     }]);
 

@@ -28,6 +28,7 @@ import { motion } from 'framer-motion';
 import SvgIcon from '@/components/SvgIcon';
 import { useAuth } from '@/contexts/AuthContext';
 import { getUserMentorshipSessions, getActiveScholarships, getFlashcardDecks, createFlashcardDeck, getCourses } from '@/utils/supabaseClient';
+import PersonalizedLearningPathCard from '@/components/PersonalizedLearningPathCard';
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -238,6 +239,27 @@ export default function DashboardPage() {
                                                 </Stack>
                                             </CardContent>
                                         </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </motion.div>
+
+                        {/* Personalized Learning Paths */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                                Your Learning Paths
+                            </Typography>
+                            <Grid container spacing={2}>
+                                {courses.map((course) => (
+                                    <Grid item xs={12} md={6} key={course.id}>
+                                        <PersonalizedLearningPathCard
+                                            courseId={course.id}
+                                            gradeLevel={course.grade_level}
+                                        />
                                     </Grid>
                                 ))}
                             </Grid>

@@ -43,7 +43,7 @@ import { LocalizationProvider, DatePicker, TimePicker } from '@mui/x-date-picker
 import { format, addDays } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/utils/supabaseClient';
+import { supabase, createMentorshipSession } from '@/utils/supabaseClient';
 
 export default function MentorshipPage() {
     const { user } = useAuth();
@@ -78,50 +78,119 @@ export default function MentorshipPage() {
     }, [searchTerm, subject, experience, mentors]);
 
     const fetchMentors = async () => {
+        setLoading(true);
         try {
-            const { data, error } = await supabase
+            // First approach - try to query with nested selects (might fail if relationships aren't set up)
+            try {
+                const { data, error } = await supabase
+                    .from('mentors')
+                    .select('*, mentor_subjects(subject), mentor_reviews(rating)')
+                    .eq('is_active', true)
+                    .order('experience_years', { ascending: false });
+
+                if (error) throw error;
+                
+                // Process mentor data to add average rating and subject list
+                const processedMentors = processMentorData(data);
+                setMentors(processedMentors);
+                setFilteredMentors(processedMentors);
+                extractSubjects(processedMentors);
+                return; // Exit if this worked
+            } catch (nestedError) {
+                console.warn('Nested query failed, trying alternative approach:', nestedError);
+                // Continue to fallback
+            }
+
+            // Fallback approach - if nested select fails, do separate queries
+            const { data: mentorsData, error: mentorsError } = await supabase
                 .from('mentors')
-                .select('*, mentor_subjects(subject), mentor_reviews(rating)')
+                .select('*')
                 .eq('is_active', true)
                 .order('experience_years', { ascending: false });
 
-            if (error) throw error;
+            if (mentorsError) throw mentorsError;
 
-            // Process mentor data to add average rating and subject list
-            const processedMentors = data.map(mentor => {
-                const reviewCount = mentor.mentor_reviews ? mentor.mentor_reviews.length : 0;
-                const avgRating = reviewCount > 0
-                    ? mentor.mentor_reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount
-                    : 0;
+            // Get all mentors with basic data
+            const mentorsWithBasicData = mentorsData || [];
+            
+            // Fetch subjects separately
+            const mentorIds = mentorsWithBasicData.map(m => m.id);
+            const { data: subjectsData, error: subjectsError } = await supabase
+                .from('mentor_subjects')
+                .select('mentor_id, subject')
+                .in('mentor_id', mentorIds);
 
-                const mentorSubjects = mentor.mentor_subjects
-                    ? mentor.mentor_subjects.map(s => s.subject)
+            if (subjectsError) console.warn('Failed to fetch subjects:', subjectsError);
+            
+            // Fetch reviews separately
+            const { data: reviewsData, error: reviewsError } = await supabase
+                .from('mentor_reviews')
+                .select('mentor_id, rating')
+                .in('mentor_id', mentorIds);
+
+            if (reviewsError) console.warn('Failed to fetch reviews:', reviewsError);
+            
+            // Map subjects and reviews to mentors
+            const enrichedMentors = mentorsWithBasicData.map(mentor => {
+                const mentorSubjects = subjectsData 
+                    ? subjectsData.filter(s => s.mentor_id === mentor.id).map(s => s.subject)
                     : [];
-
+                    
+                const mentorReviews = reviewsData
+                    ? reviewsData.filter(r => r.mentor_id === mentor.id).map(r => ({ rating: r.rating }))
+                    : [];
+                    
                 return {
                     ...mentor,
-                    avg_rating: avgRating,
-                    review_count: reviewCount,
-                    subjects: mentorSubjects,
+                    mentor_subjects: mentorSubjects.map(subject => ({ subject })),
+                    mentor_reviews: mentorReviews
                 };
             });
-
-            setMentors(processedMentors || []);
-            setFilteredMentors(processedMentors || []);
-
-            // Extract unique subjects for filter
-            const allSubjects = new Set();
-            processedMentors.forEach(mentor => {
-                mentor.subjects.forEach(subject => allSubjects.add(subject));
-            });
-            setSubjects(Array.from(allSubjects));
+            
+            // Process data to add calculated fields
+            const processedMentors = processMentorData(enrichedMentors);
+            setMentors(processedMentors);
+            setFilteredMentors(processedMentors);
+            extractSubjects(processedMentors);
 
         } catch (error) {
             console.error('Error fetching mentors:', error);
             setError('Failed to load mentors. Please try again later.');
+            setMentors([]);
+            setFilteredMentors([]);
         } finally {
             setLoading(false);
         }
+    };
+
+    const processMentorData = (data) => {
+        if (!data) return [];
+        
+        return data.map(mentor => {
+            const reviewCount = mentor.mentor_reviews ? mentor.mentor_reviews.length : 0;
+            const avgRating = reviewCount > 0
+                ? mentor.mentor_reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount
+                : 0;
+
+            const mentorSubjects = mentor.mentor_subjects
+                ? mentor.mentor_subjects.map(s => s.subject)
+                : [];
+
+            return {
+                ...mentor,
+                avg_rating: avgRating,
+                review_count: reviewCount,
+                subjects: mentorSubjects,
+            };
+        });
+    };
+
+    const extractSubjects = (mentors) => {
+        const allSubjects = new Set();
+        mentors.forEach(mentor => {
+            mentor.subjects.forEach(subject => allSubjects.add(subject));
+        });
+        setSubjects(Array.from(allSubjects));
     };
 
     const applyFilters = () => {
@@ -192,20 +261,17 @@ export default function MentorshipPage() {
                 0
             );
 
-            const { data, error } = await supabase
-                .from('mentorship_sessions')
-                .insert([
-                    {
-                        user_id: user.id,
-                        mentor_id: selectedMentor.id,
-                        session_date: sessionDate.toISOString(),
-                        duration_minutes: bookingData.duration,
-                        topic: bookingData.topic,
-                        student_message: bookingData.message,
-                        status: 'pending',
-                    },
-                ])
-                .select();
+            // Combine topic and message for notes field
+            const notes = `Topic: ${bookingData.topic}\n\nMessage: ${bookingData.message}`;
+            
+            // Use the updated function from supabaseClient.js
+            const { error } = await createMentorshipSession(
+                selectedMentor.id,
+                user.id,
+                sessionDate.toISOString(),
+                bookingData.duration,
+                notes
+            );
 
             if (error) throw error;
 

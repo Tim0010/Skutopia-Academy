@@ -24,7 +24,8 @@ import {
 import { motion } from 'framer-motion';
 import SvgIcon from '@/components/SvgIcon';
 import { useAuth } from '@/contexts/AuthContext';
-import { getFlashcardDecks, createFlashcardDeck } from '@/utils/supabaseClient';
+import { getFlashcardDecks, createFlashcardDeck, createFlashcards } from '@/utils/supabaseClient';
+import AIFlashcardGenerator from '@/components/AIFlashcardGenerator';
 
 export default function FlashcardsPage() {
     const router = useRouter();
@@ -67,17 +68,72 @@ export default function FlashcardsPage() {
         }
     };
 
+    /**
+     * Handle AI-generated flashcards
+     * @param {Array} flashcards - Array of AI-generated flashcards
+     */
+    const handleAIFlashcardsGenerated = async (flashcards) => {
+        try {
+            // First create a new deck to hold the flashcards
+            const { data: deckData, error: deckError } = await createFlashcardDeck(
+                user.id,
+                `AI Generated: ${flashcards[0]?.topic || 'Study Cards'}`,
+                `AI-generated flashcards on ${flashcards[0]?.topic || 'various topics'}`,
+                flashcards[0]?.subject || '',
+                false // Not public by default
+            );
+            
+            if (deckError) {
+                console.error('Error creating deck for AI flashcards:', deckError);
+                return;
+            }
+            
+            // Format flashcards for database
+            const formattedFlashcards = flashcards.map(card => ({
+                deck_id: deckData.id,
+                front_content: JSON.stringify({
+                    text: card.front || card.question || '',
+                    visual_hint: card.visual_suggestion || ''
+                }),
+                back_content: JSON.stringify({
+                    text: card.back || card.answer || '',
+                    explanation: card.explanation || ''
+                }),
+                difficulty_level: card.difficulty_level || 1
+            }));
+            
+            // Add flashcards to the deck
+            const { error: cardsError } = await createFlashcards(formattedFlashcards);
+            
+            if (cardsError) {
+                console.error('Error adding AI flashcards to deck:', cardsError);
+                return;
+            }
+            
+            // Reload decks to show the new one
+            loadDecks();
+            
+        } catch (error) {
+            console.error('Error handling AI-generated flashcards:', error);
+        }
+    };
+
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h4">My Flashcards</Typography>
-                <Button
-                    variant="contained"
-                    startIcon={<SvgIcon name="tabler-plus" />}
-                    onClick={() => setIsCreating(true)}
-                >
-                    Create New Deck
-                </Button>
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                    <AIFlashcardGenerator 
+                        onFlashcardsGenerated={handleAIFlashcardsGenerated}
+                    />
+                    <Button
+                        variant="contained"
+                        startIcon={<SvgIcon name="tabler-plus" />}
+                        onClick={() => setIsCreating(true)}
+                    >
+                        Create New Deck
+                    </Button>
+                </Box>
             </Box>
 
             <Grid container spacing={3}>

@@ -16,7 +16,14 @@ import {
     Switch,
     FormControlLabel,
     Divider,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { SvgIcon } from '@mui/material';
 
 export default function SettingsPage() {
     const { user } = useAuth();
@@ -33,6 +40,7 @@ export default function SettingsPage() {
         push_notifications: true,
         marketing_emails: false
     });
+    const router = useRouter();
 
     useEffect(() => {
         if (user?.id) {
@@ -350,6 +358,42 @@ export default function SettingsPage() {
                         </Button>
                     </Grid>
                 </Grid>
+
+                {/* Admin Settings (if admin) */}
+                {user?.user_metadata?.role === 'admin' && (
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 3,
+                            mb: 3,
+                            borderRadius: 2,
+                            border: '1px solid',
+                            borderColor: 'divider'
+                        }}
+                    >
+                        <Typography variant="h6" fontWeight="600" gutterBottom>
+                            Admin Settings
+                        </Typography>
+                        <Divider sx={{ mb: 2 }} />
+                        
+                        <List disablePadding>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    onClick={() => router.push('/admin/setup')}
+                                    sx={{ borderRadius: 1 }}
+                                >
+                                    <ListItemIcon>
+                                        <SvgIcon name="tabler-database" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary="Database Setup"
+                                        secondary="Set up required database tables and functions"
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Paper>
+                )}
             </Paper>
         </Container>
     );

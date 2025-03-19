@@ -10,23 +10,24 @@ import dynamic from 'next/dynamic';
 import useDataThemeMode from '@/hooks/useDataThemeMode';
 
 const ScrollFab = dynamic(() => import('@/components/ScrollFab'));
-const SectionsLayout = dynamic(() => import('@/views/sections/layout'));
+const ThemeAI = dynamic(() => import('@/views/landings/ai/theme'));
+const MainLayout = dynamic(() => import('@/views/landings/default/layout'));
 
 /***************************  LAYOUT - SECTIONS  ***************************/
 
-export default function Sections({ children }) {
+export default function SectionsLayout({ children }) {
   useDataThemeMode();
 
   return (
-    <SectionsLayout>
-      <>
-        {children}
-
-        {/* scroll to top section */}
-        <ScrollFab />
-      </>
-    </SectionsLayout>
+    <ThemeAI>
+      <MainLayout>
+        <>
+          {children}
+          <ScrollFab />
+        </>
+      </MainLayout>
+    </ThemeAI>
   );
 }
 
-Sections.propTypes = { children: PropTypes.any };
+SectionsLayout.propTypes = { children: PropTypes.any };

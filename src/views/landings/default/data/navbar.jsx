@@ -28,10 +28,8 @@ export const navbar = {
     href: '/auth/register'
   },
   navItems: [
-    { id: 'home', title: 'Explore', link: '/' },
-    { id: 'courses', title: 'Courses', link: '/courses' },
-    { id: 'flashcards', title: 'Flashcards', link: '/flashcards' },
-    { id: 'quizzes', title: 'Practice', link: '/practice' },
-    { id: 'mentorship', title: 'Mentorship', link: '/mentorship' }
+    { id: 'home', title: 'Home', link: '/' },
+    { id: 'explore', title: 'Explore', link: '/explore' },
+    { id: 'story', title: 'Our Story', link: '/about' }
   ]
 };

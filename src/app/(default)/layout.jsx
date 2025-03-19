@@ -1,6 +1,9 @@
+'use client';
+
 import PropTypes from 'prop-types';
 // @next
 import dynamic from 'next/dynamic';
+import useDataThemeMode from '@/hooks/useDataThemeMode';
 
 // @types
 
@@ -11,7 +14,9 @@ const MainLayout = dynamic(() => import('@/views/landings/default/layout'));
 
 /***************************  LAYOUT - AI  ***************************/
 
-export default function AI({ children }) {
+export default function DefaultLayout({ children }) {
+  useDataThemeMode();
+
   return (
     <ThemeAI>
       <MainLayout>
@@ -26,4 +31,4 @@ export default function AI({ children }) {
   );
 }
 
-AI.propTypes = { children: PropTypes.any };
+DefaultLayout.propTypes = { children: PropTypes.any };
