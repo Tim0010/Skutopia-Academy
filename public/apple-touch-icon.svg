@@ -1,0 +1,7 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#2196F3"/>
+  <!-- Graduation Cap -->
+  <path d="M90 40L30 70L90 100L150 70L90 40Z" fill="white"/>
+  <path d="M50 80V120C50 120 70 130 90 130C110 130 130 120 130 120V80" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 70V110" stroke="white" stroke-width="8" stroke-linecap="round"/>
+</svg> 

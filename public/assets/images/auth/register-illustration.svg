@@ -1,0 +1,26 @@
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background elements -->
+  <circle cx="300" cy="250" r="200" fill="#F0F7FF" />
+  <circle cx="480" cy="120" r="40" fill="#E1EFFF" />
+  <circle cx="120" cy="380" r="60" fill="#E1EFFF" />
+  
+  <!-- Document/Form -->
+  <rect x="200" y="150" width="200" height="250" rx="10" fill="white" stroke="#2196F3" stroke-width="2" />
+  <rect x="220" y="180" width="160" height="20" rx="4" fill="#E3F2FD" />
+  <rect x="220" y="220" width="160" height="20" rx="4" fill="#E3F2FD" />
+  <rect x="220" y="260" width="160" height="20" rx="4" fill="#E3F2FD" />
+  <rect x="220" y="300" width="160" height="20" rx="4" fill="#E3F2FD" />
+  <rect x="220" y="340" width="80" height="30" rx="6" fill="#2196F3" />
+  
+  <!-- Person -->
+  <circle cx="400" cy="180" r="30" fill="#BBDEFB" stroke="#2196F3" stroke-width="2" />
+  <path d="M380 230 L400 210 L420 230 L420 260 L380 260 Z" fill="#BBDEFB" stroke="#2196F3" stroke-width="2" />
+  
+  <!-- Checkmark -->
+  <circle cx="150" cy="200" r="25" fill="#4CAF50" opacity="0.8" />
+  <path d="M140 200 L150 210 L165 190" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Stars/Sparkles -->
+  <path d="M450 300 L460 320 L480 320 L465 335 L470 355 L450 345 L430 355 L435 335 L420 320 L440 320 Z" fill="#FFC107" opacity="0.7" />
+  <path d="M150 120 L155 130 L165 130 L158 138 L160 148 L150 143 L140 148 L142 138 L135 130 L145 130 Z" fill="#FFC107" opacity="0.7" />
+</svg> 

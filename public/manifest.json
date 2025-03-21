@@ -1,0 +1,28 @@
+{
+  "name": "Skutopia Academy",
+  "short_name": "Skutopia",
+  "description": "Learn STEM subjects with personalized mentorship",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2196F3",
+  "theme_color": "#2196F3",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png?v=1",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+} 
