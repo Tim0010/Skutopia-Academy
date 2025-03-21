@@ -101,12 +101,13 @@ function NavList({ item, menuTextColor }) {
     sx: {
       ...toggleProps,
       pr: { md: 2.25, lg: 3 },
+      mx: 0.5,
       ...(item.icon && { justifyContent: 'center', gap: 0.75 }),
       ...(item.link &&
         (currentPath === item.link || (item.link === '/sections' && currentPath.includes('/sections'))) && {
-          color: 'primary.main',
-          fontWeight: 600
-        })
+        color: 'primary.main',
+        fontWeight: 600
+      })
     },
     ...(item.link && { component: NextLink, href: item.link, ...(item?.target && { target: item.target }) })
   };
@@ -146,7 +147,13 @@ function NavList({ item, menuTextColor }) {
 /***************************  NAVBAR - MENUS  ***************************/
 
 export function NavMenu({ navItems, menuTextColor }) {
-  return navItems.map((item, index) => <NavList key={index} {...{ item, menuTextColor }} />);
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      {navItems.map((item) => (
+        <NavList key={item.id} item={item} menuTextColor={menuTextColor} />
+      ))}
+    </Box>
+  );
 }
 
 export function NavMenuDrawer({ navItems, menuTextColor }) {

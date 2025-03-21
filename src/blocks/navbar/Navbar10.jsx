@@ -38,7 +38,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function Navbar10({ children }) {
   return (
-    <ContainerWrapper>
+    <ContainerWrapper sx={{ maxWidth: 'lg' }}>
       <AppBar position="static" color="inherit" elevation={0} sx={{ background: 'transparent' }}>
         <StyledToolbar>{children}</StyledToolbar>
       </AppBar>

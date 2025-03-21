@@ -79,7 +79,7 @@ export default function Main() {
     <>
       <Hero17
         chip={{
-          label: 'Skutopia Academy',
+          label: 'Skutopia',
           icon: (
             <Box sx={{ position: 'relative', display: 'inline-flex', mr: 1 }}>
               <SvgIcon name="tabler-school" color="success.main" size={18} />
@@ -105,9 +105,9 @@ export default function Main() {
           )
         }}
         headLine="The Success Academy"
-        captionLine="Master STEM through hands-on practice"
+        captionLine="AI powered online education platform for Zambian students"
         primaryBtn={{ children: 'Get started', href: '/auth/register' }}
-        image="/assets/images/hero/stem-education.png"
+        image="/assets/images/hero/stem-education.jpg"
         imageAlt="STEM Education"
         listData={[
           {
@@ -227,7 +227,7 @@ export default function Main() {
 
       <LearningPaths
         heading="Welcome to Skutopia Academy"
-        subheading="Explore our interactive platform designed to enhance STEM learning in Zambia through engaging content and personalized paths."
+        subheading="Our platform empowers Zambian students from Grade 8 to 12 to succeed academically. We offer a diverse range of short courses, flashcards, quizzes, and mentorship programs, all designed to enhance learning and boost performance."
         animation={true}
         sx={{ textAlign: 'center' }}
       />
@@ -270,7 +270,7 @@ export default function Main() {
                       mb: 2
                     }}
                   >
-                    Review the basics or master new skills—designed for Zambian students from Grade 8 to 12.    </Typography>
+                    Learn, practice, and excel with our interactive platform. Access short courses, test your knowledge with quizzes, and use AI-generated flashcards. Get mentorship support to succeed in your studies and future career.  </Typography>
                 </Stack>
               </motion.div>
             </Grid>

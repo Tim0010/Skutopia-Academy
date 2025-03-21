@@ -283,7 +283,7 @@ function VideoCoursesAnimation() {
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
-                Make Concepts Come to Life Visually
+                Interactive Learning
               </Typography>
 
               <Typography

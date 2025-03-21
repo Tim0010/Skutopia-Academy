@@ -183,20 +183,6 @@ export default function Hero17({ chip, headLine, captionLine, primaryBtn, videoS
                   {captionLine}
                 </Typography>
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 1,
-                  delay: 0.2,
-                  ease: [0.215, 0.61, 0.355, 1]
-                }}
-              >
-                <Box sx={{ pt: 0.5, pb: 0.75 }}>
-                  <Wave />
-                </Box>
-              </motion.div>
             </Stack>
             <Stack sx={{ alignItems: 'center', gap: 2, mt: { xs: 3, sm: 4, md: 5 } }}>
               <motion.div

@@ -23,51 +23,71 @@ export default function NavbarContent10({ navItems, primaryBtn, secondaryBtn }) 
   const downSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', width: 1 }}>
-      <Logo />
+    <Stack direction="row" sx={{ alignItems: 'center', width: 1 }}>
+      {/* Logo - Left section */}
+      <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+        <Logo />
+      </Box>
+
+      {/* Navigation items - Center section */}
       {!downMD && navItems && (
-        <Box sx={{ bgcolor: 'grey.200', borderRadius: 10 }}>
+        <Box sx={{
+          flex: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          bgcolor: 'grey.200',
+          borderRadius: 10,
+          mx: 'auto'
+        }}>
           <NavMenu {...{ navItems }} />
         </Box>
       )}
-      <Stack direction="row" sx={{ gap: { xs: 1, md: 1.5 } }}>
-        {!downSM && (
-          <>
-            <NavSecondaryButton {...secondaryBtn} />
-            <ButtonAnimationWrapper>
-              <NavPrimaryButton {...primaryBtn} />
-            </ButtonAnimationWrapper>
-          </>
-        )}
-        {downMD && (
-          <Box sx={{ flexGrow: 1 }}>
-            <MenuPopper
-              offset={downSM ? 12 : 16}
-              toggleProps={{
-                children: <SvgIcon name="tabler-menu-2" color="text.primary" />,
-                color: 'inherit',
-                sx: { minWidth: 40, width: 40, height: 40, p: 0 }
-              }}
-            >
-              <ContainerWrapper>
-                {navItems && (
-                  <Box sx={{ mx: -2 }}>
-                    <NavMenuDrawer {...{ navItems }} />
-                  </Box>
-                )}
-                {downSM && (
-                  <Stack direction="row" sx={{ justifyContent: 'space-between', gap: 1, px: 5, py: 2.5, mx: -5, bgcolor: 'grey.100' }}>
-                    <NavSecondaryButton {...secondaryBtn} />
-                    <ButtonAnimationWrapper>
-                      <NavPrimaryButton {...primaryBtn} />
-                    </ButtonAnimationWrapper>
-                  </Stack>
-                )}
-              </ContainerWrapper>
-            </MenuPopper>
-          </Box>
-        )}
-      </Stack>
+
+      {/* Buttons - Right section */}
+      <Box sx={{
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }}>
+        <Stack direction="row" sx={{ gap: { xs: 1, md: 1.5 } }}>
+          {!downSM && (
+            <>
+              <NavSecondaryButton {...secondaryBtn} />
+              <ButtonAnimationWrapper>
+                <NavPrimaryButton {...primaryBtn} />
+              </ButtonAnimationWrapper>
+            </>
+          )}
+          {downMD && (
+            <Box sx={{ flexGrow: 1 }}>
+              <MenuPopper
+                offset={downSM ? 12 : 16}
+                toggleProps={{
+                  children: <SvgIcon name="tabler-menu-2" color="text.primary" />,
+                  color: 'inherit',
+                  sx: { minWidth: 40, width: 40, height: 40, p: 0 }
+                }}
+              >
+                <ContainerWrapper>
+                  {navItems && (
+                    <Box sx={{ mx: -2 }}>
+                      <NavMenuDrawer {...{ navItems }} />
+                    </Box>
+                  )}
+                  {downSM && (
+                    <Stack direction="row" sx={{ justifyContent: 'space-between', gap: 1, px: 5, py: 2.5, mx: -5, bgcolor: 'grey.100' }}>
+                      <NavSecondaryButton {...secondaryBtn} />
+                      <ButtonAnimationWrapper>
+                        <NavPrimaryButton {...primaryBtn} />
+                      </ButtonAnimationWrapper>
+                    </Stack>
+                  )}
+                </ContainerWrapper>
+              </MenuPopper>
+            </Box>
+          )}
+        </Stack>
+      </Box>
     </Stack>
   );
 }
