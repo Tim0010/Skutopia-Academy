@@ -68,33 +68,23 @@ const gradeModules = [
 const CurriculumPage = () => {
   return (
     <Box sx={{ py: 0, bgcolor: 'background.default', overflow: 'hidden' }}>
-      {/* Hero Section - Split layout similar to image */}
-      <Box sx={{
-        width: '100%',
-        display: 'flex',
+      {/* Hero Section - Split layout */}
+      <Box sx={{ 
+        width: '100%', 
+        display: 'flex', 
         flexDirection: { xs: 'column', md: 'row' },
         minHeight: { xs: 'auto', md: '580px' },
-        mt: { xs: 0, md: 0 },
-        borderRadius: { xs: 0, md: '16px 16px 0 0' },
-        overflow: 'hidden',
-        boxShadow: { xs: 0, md: 1 }
+        mt: { xs: 2, md: 8 }
       }}>
-        <Container
+        <Container 
           maxWidth={false}
-          sx={{
+          sx={{ 
             width: { xs: '100%', md: '50%' },
-            py: { xs: 6, md: 10 },
-            px: { xs: 3, md: 10 },
-            display: 'flex',
-            alignItems: 'center'
+            py: { xs: 5, md: 8 },
+            px: { xs: 3, md: 8 }
           }}
         >
-          <Box sx={{
-            width: '100%',
-            maxWidth: '600px',
-            ml: { xs: 'auto', md: 0 },
-            mr: 'auto'
-          }}>
+          <Box sx={{ maxWidth: '600px', ml: { xs: 'auto', md: 0 }, mr: 'auto' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -111,7 +101,7 @@ const CurriculumPage = () => {
                   lineHeight: 1.2
                 }}
               >
-                Stem Curriculum
+                STEM Curriculum
               </Typography>
 
               <Typography
@@ -120,7 +110,8 @@ const CurriculumPage = () => {
                 color="text.primary"
                 sx={{
                   fontWeight: 600,
-                  mb: 3
+                  mb: 3,
+                  lineHeight: 1.4
                 }}
               >
                 Skutopia's curriculum provides Zambian students in grades 8–12 with essential hands-on STEM skills.
@@ -132,10 +123,24 @@ const CurriculumPage = () => {
                 sx={{
                   fontSize: '1.1rem',
                   mb: 4,
-                  lineHeight: 1.7
+                  lineHeight: 1.7,
+                  maxWidth: '90%'
                 }}
               >
-                Through engaging lessons and hands-on challenges, Skutopia's curriculum helps Zambian students in grades 8–12 build essential STEM skills, enhance problem-solving abilities, and develop a passion for learning. Designed for both classrooms and informal programs, it fosters curiosity, critical thinking, and collaboration.
+                Through engaging lessons and practical challenges, our curriculum helps Zambian students build essential STEM skills, enhance problem-solving abilities, and develop a passion for learning. 
+              </Typography>
+              
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{
+                  fontSize: '1.1rem',
+                  mb: 4,
+                  lineHeight: 1.7,
+                  maxWidth: '90%'
+                }}
+              >
+                Designed specifically for grades 8-12, our program fosters curiosity, critical thinking, and collaboration while aligning with Zambian educational standards.
               </Typography>
 
               <Button
@@ -149,7 +154,7 @@ const CurriculumPage = () => {
                   borderRadius: 2
                 }}
               >
-                Explore our curriculum and lessons below!
+                Explore our curriculum
               </Button>
             </motion.div>
           </Box>
@@ -200,7 +205,8 @@ const CurriculumPage = () => {
               align="center"
               sx={{
                 mb: 3,
-                fontWeight: 700
+                fontWeight: 700,
+                lineHeight: 1.3
               }}
             >
               Our STEM Approach
@@ -215,10 +221,11 @@ const CurriculumPage = () => {
                 mb: 8,
                 maxWidth: '800px',
                 mx: 'auto',
-                px: 2
+                px: 2,
+                lineHeight: 1.6
               }}
             >
-              Aligned with ECZ and Zambia's curriculum, our hands-on STEM program builds critical thinking and problem-solving skills for grades 8–12.
+              Aligned with Zambia's curriculum standards, our hands-on STEM program builds critical thinking and problem-solving skills tailored specifically for grades 8–12.
             </Typography>
 
             <Grid container spacing={4}>
@@ -269,10 +276,21 @@ const CurriculumPage = () => {
                         >
                           {subject.icon}
                         </Box>
-                        <Typography variant="h5" component="h3" align="center" gutterBottom>
+                        <Typography 
+                          variant="h5" 
+                          component="h3" 
+                          align="center" 
+                          gutterBottom
+                          sx={{ fontWeight: 600, mb: 2 }}
+                        >
                           {subject.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" align="center">
+                        <Typography 
+                          variant="body2" 
+                          color="text.secondary" 
+                          align="center"
+                          sx={{ lineHeight: 1.6 }}
+                        >
                           {subject.description}
                         </Typography>
                       </CardContent>
@@ -282,50 +300,52 @@ const CurriculumPage = () => {
               ))}
             </Grid>
           </Box>
-
+          
           {/* Grade-Level Content */}
-          <Box sx={{ py: { xs: 5, md: 8 }, mb: 4 }}>
+          <Box sx={{ py: { xs: 5, md: 8 } }}>
             <Typography
               variant="h3"
               component="h2"
               align="center"
               sx={{
                 mb: 3,
-                fontWeight: 700
+                fontWeight: 700,
+                lineHeight: 1.3
               }}
             >
-              Grade-Level Curriculum
+              Grade-Level Modules
             </Typography>
-
+            
             <Typography
               variant="h6"
               component="p"
               align="center"
               color="text.secondary"
               sx={{
-                mb: 8,
+                mb: 6,
                 maxWidth: '800px',
                 mx: 'auto',
-                px: 2
+                px: 2,
+                lineHeight: 1.6
               }}
             >
-              Our curriculum aligns with the Zambian education system, providing specialized content for junior and senior secondary levels.
+              Our curriculum is designed specifically for Zambian students, offering age-appropriate challenges aligned with the national education standards.
             </Typography>
-
-            <Grid container spacing={4} justifyContent="center">
+            
+            <Grid container spacing={4}>
               {gradeModules.map((grade, index) => (
-                <Grid item xs={12} md={6} key={index} sx={{ maxWidth: '500px' }}>
+                <Grid item xs={12} sm={6} key={index}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card
-                      sx={{
+                    <Card 
+                      sx={{ 
                         height: '100%',
                         borderRadius: 2,
-                        boxShadow: 3,
+                        boxShadow: 2,
                         transition: 'transform 0.3s, box-shadow 0.3s',
                         '&:hover': {
                           transform: 'translateY(-8px)',
@@ -333,52 +353,52 @@ const CurriculumPage = () => {
                         }
                       }}
                     >
-                      <CardContent sx={{ p: 4 }}>
-                        <Typography
-                          variant="h4"
-                          component="h3"
+                      <CardContent sx={{ p: 3 }}>
+                        <Typography 
+                          variant="h5" 
+                          component="h3" 
                           gutterBottom
                           sx={{
                             pb: 2,
-                            borderBottom: '2px solid',
-                            borderColor: 'primary.main',
+                            borderBottom: '1px solid',
+                            borderColor: 'divider',
                             color: 'primary.main',
                             fontWeight: 600
                           }}
                         >
                           {grade.grade}
                         </Typography>
-                        <Box component="ul" sx={{ pl: 2, mt: 2 }}>
+                        <Box component="ul" sx={{ pl: 2, mb: 3 }}>
                           {grade.modules.map((module, idx) => (
-                            <Typography
-                              component="li"
-                              variant="body1"
+                            <Typography 
+                              component="li" 
+                              variant="body1" 
                               key={idx}
-                              sx={{
-                                py: 1.5,
+                              sx={{ 
+                                py: 1,
                                 display: 'flex',
                                 alignItems: 'center',
+                                lineHeight: 1.5,
                                 '&::before': {
                                   content: '""',
                                   display: 'inline-block',
-                                  width: 10,
-                                  height: 10,
+                                  width: 8,
+                                  height: 8,
                                   borderRadius: '50%',
                                   bgcolor: 'primary.main',
-                                  mr: 2.5
-                                },
-                                fontSize: '1.1rem'
+                                  mr: 2
+                                }
                               }}
                             >
                               {module}
                             </Typography>
                           ))}
                         </Box>
-                        <Button
-                          variant="contained"
+                        <Button 
+                          variant="outlined" 
                           color="primary"
                           fullWidth
-                          sx={{ mt: 4, py: 1.5, fontWeight: 600 }}
+                          sx={{ mt: 2 }}
                         >
                           View Detailed Syllabus
                         </Button>
@@ -389,22 +409,125 @@ const CurriculumPage = () => {
               ))}
             </Grid>
           </Box>
-
+          
+          {/* Local Context Section */}
+          <Box sx={{ py: { xs: 5, md: 8 } }}>
+            <Typography
+              variant="h3"
+              component="h2"
+              align="center"
+              sx={{
+                mb: 3,
+                fontWeight: 700,
+                lineHeight: 1.3
+              }}
+            >
+              Zambian STEM Innovation
+            </Typography>
+            
+            <Typography
+              variant="h6"
+              component="p"
+              align="center"
+              color="text.secondary"
+              sx={{
+                mb: 6,
+                maxWidth: '800px',
+                mx: 'auto',
+                px: 2,
+                lineHeight: 1.6
+              }}
+            >
+              Our curriculum incorporates local challenges and opportunities, connecting STEM education to real Zambian contexts and industries.
+            </Typography>
+            
+            <Grid container spacing={4}>
+              {zambianContexts.map((context, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card
+                      sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        height: '100%',
+                        overflow: 'hidden',
+                        borderRadius: 2,
+                        boxShadow: 2,
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                          boxShadow: 4
+                        },
+                        transition: 'transform 0.3s, box-shadow 0.3s'
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          position: 'relative',
+                          width: { xs: '100%', sm: '33%' },
+                          minHeight: { xs: 200, sm: 'auto' }
+                        }}
+                      >
+                        <Image
+                          src={context.image}
+                          alt={context.title}
+                          fill
+                          style={{
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </Box>
+                      <CardContent sx={{ flex: '1 1 auto', p: 3 }}>
+                        <Typography 
+                          variant="h5" 
+                          component="h3" 
+                          gutterBottom
+                          sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}
+                        >
+                          {context.title}
+                        </Typography>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ mb: 2, lineHeight: 1.6 }}
+                        >
+                          {context.description}
+                        </Typography>
+                        <Typography component="div" variant="body2" color="text.secondary">
+                          <strong>Skills developed:</strong>
+                          <Box component="ul" sx={{ mt: 1, pl: 2 }}>
+                            {context.skills.map((skill, idx) => (
+                              <Box component="li" key={idx} sx={{ mb: 0.5 }}>
+                                {skill}
+                              </Box>
+                            ))}
+                          </Box>
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+          
           {/* Teacher Resources */}
-          <Box
-            sx={{
-              py: { xs: 6, md: 10 },
-              px: { xs: 3, md: 6 },
+          <Box 
+            sx={{ 
+              py: 8, 
+              px: 4,
               bgcolor: 'primary.main',
-              borderRadius: { xs: 2, md: 4 },
+              borderRadius: 4,
               color: 'white',
               mb: 8,
               position: 'relative',
-              overflow: 'hidden',
-              boxShadow: 3
+              overflow: 'hidden'
             }}
           >
-            <Box
+            <Box 
               sx={{
                 position: 'absolute',
                 top: 0,
@@ -417,93 +540,66 @@ const CurriculumPage = () => {
               }}
             />
             <Box sx={{ position: 'relative', zIndex: 1 }}>
-              <Typography
-                variant="h3"
-                component="h2"
+              <Typography 
+                variant="h3" 
+                component="h2" 
                 align="center"
-                sx={{
+                sx={{ 
                   mb: 3,
-                  fontWeight: 700
+                  fontWeight: 700,
+                  lineHeight: 1.3
                 }}
               >
-                Teacher Resources
+                Resources for Educators
               </Typography>
-
-              <Typography
-                variant="h6"
-                component="p"
+              
+              <Typography 
+                variant="h6" 
+                component="p" 
                 align="center"
-                sx={{
+                sx={{ 
                   mb: 5,
                   maxWidth: '800px',
                   mx: 'auto',
-                  opacity: 0.9
+                  opacity: 0.9,
+                  lineHeight: 1.6
                 }}
               >
-                Access everything you need to successfully implement our curriculum in your classroom.
+                Access everything you need to successfully implement our curriculum in your classroom, with resources specifically designed for the Zambian education context.
               </Typography>
-
+              
               <Grid container spacing={3} justifyContent="center">
-                <Grid item xs={12} sm={4}>
-                  <Card sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    backdropFilter: 'blur(5px)',
-                    color: 'white',
-                    height: '100%',
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
-                  }}>
-                    <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                      <SchoolIcon sx={{ fontSize: 50, mb: 2 }} />
-                      <Typography variant="h6" gutterBottom>Lesson Plans</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                        Detailed, ready-to-use lesson plans with clear objectives and assessment strategies.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Card sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    backdropFilter: 'blur(5px)',
-                    color: 'white',
-                    height: '100%',
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
-                  }}>
-                    <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                      <EmojiObjectsIcon sx={{ fontSize: 50, mb: 2 }} />
-                      <Typography variant="h6" gutterBottom>Activity Guides</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                        Step-by-step instructions for hands-on activities, experiments, and projects.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Card sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    backdropFilter: 'blur(5px)',
-                    color: 'white',
-                    height: '100%',
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
-                  }}>
-                    <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                      <GroupsIcon sx={{ fontSize: 50, mb: 2 }} />
-                      <Typography variant="h6" gutterBottom>Professional Development</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                        Training resources and workshops to support effective curriculum implementation.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                {teacherResources.map((resource, index) => (
+                  <Grid item xs={12} sm={4} key={index}>
+                    <Card sx={{ 
+                      bgcolor: 'rgba(255,255,255,0.15)', 
+                      backdropFilter: 'blur(5px)',
+                      color: 'white',
+                      height: '100%',
+                      transition: 'all 0.3s ease',
+                      '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
+                    }}>
+                      <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                        {resource.icon}
+                        <Typography variant="h6" gutterBottom sx={{ mt: 2, fontWeight: 600 }}>
+                          {resource.title}
+                        </Typography>
+                        <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                          {resource.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
-
+              
               <Box sx={{ textAlign: 'center', mt: 5 }}>
-                <Button
-                  variant="contained"
-                  color="secondary"
+                <Button 
+                  variant="contained" 
+                  color="secondary" 
                   size="large"
-                  sx={{
-                    px: 4,
+                  sx={{ 
+                    px: 4, 
                     py: 1.5,
                     bgcolor: 'white',
                     color: 'primary.main',
@@ -517,53 +613,55 @@ const CurriculumPage = () => {
               </Box>
             </Box>
           </Box>
-
+          
           {/* Get Started */}
-          <Box sx={{ textAlign: 'center', py: 8 }}>
-            <Typography
-              variant="h3"
+          <Box sx={{ textAlign: 'center', py: { xs: 5, md: 8 } }}>
+            <Typography 
+              variant="h3" 
               component="h2"
-              sx={{
+              sx={{ 
                 mb: 3,
-                fontWeight: 700
+                fontWeight: 700,
+                lineHeight: 1.3
               }}
             >
-              Ready to Get Started?
+              Ready to Transform STEM Education?
             </Typography>
-
-            <Typography
-              variant="h6"
+            
+            <Typography 
+              variant="h6" 
               component="p"
               color="text.secondary"
-              sx={{
+              sx={{ 
                 mb: 4,
                 maxWidth: '700px',
-                mx: 'auto'
+                mx: 'auto',
+                lineHeight: 1.6
               }}
             >
-              Join thousands of educators who are transforming STEM education with our comprehensive curriculum.
+              Join hundreds of Zambian educators who are elevating STEM education with our comprehensive curriculum designed for local classrooms.
             </Typography>
-
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
+            
+            <Stack 
+              direction={{ xs: 'column', sm: 'row' }} 
+              spacing={3} 
               justifyContent="center"
             >
-              <Button
-                variant="contained"
-                color="primary"
+              <Button 
+                variant="contained" 
+                color="primary" 
                 size="large"
                 sx={{ px: 4, py: 1.5 }}
               >
                 Request Free Demo
               </Button>
-              <Button
-                variant="outlined"
-                color="primary"
+              <Button 
+                variant="outlined" 
+                color="primary" 
                 size="large"
                 sx={{ px: 4, py: 1.5 }}
               >
-                View Pricing
+                View Implementation Guide
               </Button>
             </Stack>
           </Box>

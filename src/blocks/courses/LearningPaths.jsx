@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
+import Container from '@mui/material/Container';
 
 // @third-party
 import { motion } from 'framer-motion';
@@ -21,196 +22,94 @@ import ContainerWrapper from '@/components/ContainerWrapper';
 import SvgIcon from '@/components/SvgIcon';
 import ButtonAnimationWrapper from '@/components/ButtonAnimationWrapper';
 
+// @components
+import CourseCard from './components/CourseCard';
+
 /***************************  LEARNING PATHS  ***************************/
 
-export default function LearningPaths({ heading, subheading, paths, animation }) {
-  const theme = useTheme();
-  const downSM = useMediaQuery(theme.breakpoints.down('sm'));
+const LearningPaths = (props) => {
+  const { heading, subheading, staticFiles } = props;
+  const { data } = staticFiles;
 
   return (
-    <ContainerWrapper>
-      <Stack spacing={5} sx={{ py: { xs: 6, sm: 8, md: 10 } }}>
-        <Stack spacing={1} sx={{ maxWidth: 720, mx: 'auto', textAlign: 'center' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.5,
-              ease: 'easeInOut'
-            }}
-          >
-            <Typography variant="h2" sx={{ fontWeight: 700 }}>{heading}</Typography>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.5,
-              delay: 0.1,
-              ease: 'easeInOut'
-            }}
-          >
-            <Typography variant="body1" color="text.secondary">
-              {subheading}
+    <Container component="section" sx={{ py: 8 }}>
+      <Grid container spacing={5} alignItems="center">
+        <Grid item xs={12} md={5}>
+          <Box sx={{ mb: { xs: 5, md: 0 } }}>
+            <Typography
+              variant="overline"
+              component="div"
+              sx={{
+                color: 'primary.main',
+                fontWeight: 600,
+                letterSpacing: 1.2,
+                mb: 2
+              }}
+            >
+              LEARNING PATHS
             </Typography>
-          </motion.div>
-        </Stack>
-
-        {animation ? (
-          <VideoCoursesAnimation />
-        ) : (
-          <Grid container spacing={2}>
-            {paths && paths.map((path, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.1 * (index % 3) + 0.2,
-                    ease: 'easeInOut'
-                  }}
-                >
-                  <Card
+            
+            <Typography
+              variant="h2"
+              component="h2"
+              sx={{
+                fontWeight: 700,
+                mb: 3,
+                background: 'linear-gradient(45deg, #095F52, #0E7C6B)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0px 2px 5px rgba(0,0,0,0.05)'
+              }}
+            >
+              {heading}
+            </Typography>
+            
+            <Box>
+              {subheading}
+            </Box>
+          </Box>
+        </Grid>
+        
+        <Grid item xs={12} md={7}>
+          <Box sx={{ position: 'relative' }}>
+            <Stack spacing={3}>
+              {Object.keys(data).slice(0, 2).map((category, index) => (
+                <Box key={category}>
+                  <Typography
+                    variant="h5"
                     sx={{
-                      height: '100%',
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      position: 'relative',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 8px 16px rgba(0,0,0,0.08)'
-                      },
+                      mb: 2,
+                      fontWeight: 600,
+                      color: index % 2 === 0 ? 'primary.main' : 'secondary.main'
                     }}
                   >
-                    <Box
-                      sx={{
-                        height: 4,
-                        width: '100%',
-                        bgcolor: `${path.color}.main`,
-                        position: 'absolute',
-                        top: 0,
-                        left: 0
-                      }}
-                    />
-
-                    <Box sx={{ p: 2.5 }}>
-                      <Stack spacing={2}>
-                        <Box
-                          sx={{
-                            width: 48,
-                            height: 48,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            bgcolor: `${path.color}.lighter`,
-                            color: `${path.color}.main`,
-                            borderRadius: 1.5
-                          }}
-                        >
-                          <SvgIcon name={path.icon} size={24} />
-                        </Box>
-
-                        <Typography
-                          variant="h5"
-                          component="div"
-                          sx={{
-                            fontWeight: 600,
-                            fontSize: '1.125rem'
-                          }}
-                        >
-                          {path.title}
-                        </Typography>
-
-                        <Typography
-                          variant="body2"
-                          component="div"
-                          color="text.secondary"
-                          sx={{
-                            fontSize: '0.875rem',
-                            minHeight: 40,
-                            display: '-webkit-box',
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden'
-                          }}
-                        >
-                          {path.description}
-                        </Typography>
-
-                        <Stack spacing={1}>
-                          <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <Typography variant="caption" color="text.secondary">
-                              {path.completed} of {path.total} completed
-                            </Typography>
-                            <Typography variant="caption" fontWeight={600} color={`${path.color}.main`}>
-                              {Math.round((path.completed / path.total) * 100)}%
-                            </Typography>
-                          </Stack>
-                          <LinearProgress
-                            variant="determinate"
-                            value={(path.completed / path.total) * 100}
-                            sx={{
-                              height: 6,
-                              borderRadius: 1,
-                              bgcolor: `${path.color}.lighter`,
-                              '& .MuiLinearProgress-bar': {
-                                bgcolor: `${path.color}.main`
-                              }
-                            }}
-                          />
-                        </Stack>
-
-                        <Stack direction="row" spacing={1}>
-                          <Button
-                            variant="contained"
-                            fullWidth
-                            size="small"
-                            sx={{
-                              bgcolor: `${path.color}.main`,
-                              '&:hover': {
-                                bgcolor: `${path.color}.dark`
-                              }
-                            }}
-                            href={`/learn/${path.id}`}
-                          >
-                            Continue
-                          </Button>
-
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{
-                              minWidth: 'auto',
-                              width: 40,
-                              color: `${path.color}.main`,
-                              borderColor: `${path.color}.main`,
-                              '&:hover': {
-                                borderColor: `${path.color}.main`,
-                                bgcolor: `${path.color}.lighter`
-                              }
-                            }}
-                            href={`/learn/${path.id}/overview`}
-                          >
-                            <SvgIcon name="tabler-info-circle" size={16} />
-                          </Button>
-                        </Stack>
-                      </Stack>
-                    </Box>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Stack>
-    </ContainerWrapper>
+                    {category}
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {data[category].lessons.map((lesson) => (
+                      <Grid item xs={12} sm={6} md={4} key={`${category}-${lesson.title}`}>
+                        <CourseCard lesson={lesson} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
-}
+};
+
+LearningPaths.propTypes = {
+  heading: PropTypes.string.isRequired,
+  subheading: PropTypes.node,
+  staticFiles: PropTypes.object.isRequired
+};
+
+export default LearningPaths;
 
 // Video Courses Animation Component
 function VideoCoursesAnimation() {
@@ -390,11 +289,4 @@ function VideoCoursesAnimation() {
       </Grid>
     </Box>
   );
-}
-
-LearningPaths.propTypes = {
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
-  paths: PropTypes.array,
-  animation: PropTypes.bool
-}; 
+} 

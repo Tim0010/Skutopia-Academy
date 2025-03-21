@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
 // @third-party
 import { motion } from 'framer-motion';
@@ -21,75 +22,128 @@ import SvgIcon from '@/components/SvgIcon';
 
 /***************************  ABOUT - 1  ***************************/
 
-export default function About1({ image, imageComponent, primaryBtn, headingLine, textLines }) {
+export default function About1({ heading, btnProps, imageProps, benefitHeading, benefits }) {
   const theme = useTheme();
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   
   return (
-    <ContainerWrapper>
-      <Grid container spacing={5} sx={{ py: { xs: 6, sm: 8, md: 10 } }}>
+    <Container component="section" sx={{ py: 8 }}>
+      <Grid container spacing={5}>
         <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Stack spacing={2.5}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                ease: 'easeInOut'
-              }}
-            >
-              <Typography variant="h2" component="div" sx={{ fontWeight: 700 }}>{headingLine}</Typography>
-            </motion.div>
-            <Stack spacing={1.5}>
-              {textLines.map((text, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.1 * (index + 1),
-                    ease: 'easeInOut'
+          <Stack spacing={4}>
+            <Box>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  ease: 'easeInOut'
+                }}
+              >
+                <Typography 
+                  variant="h2" 
+                  component="h2" 
+                  sx={{ 
+                    fontWeight: 700,
+                    mb: 2,
+                    background: 'linear-gradient(45deg, #095F52, #0E7C6B)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
                   }}
                 >
-                  <Typography variant="body1" component="div" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Box component="span" sx={{ 
-                      display: 'inline-block', 
-                      width: 6, 
-                      height: 6, 
-                      borderRadius: '50%', 
-                      bgcolor: 'primary.main',
-                      flexShrink: 0
-                    }}/>
-                    {text}
-                  </Typography>
-                </motion.div>
-              ))}
-            </Stack>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: 0.5,
-                ease: 'easeInOut'
-              }}
-            >
-              <Stack direction="row" sx={{ alignItems: 'center', gap: 2, pt: 1 }}>
+                  {heading?.title}
+                </Typography>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2,
+                  ease: 'easeInOut'
+                }}
+              >
+                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.1rem', lineHeight: 1.7 }}>
+                  {heading?.subtitle}
+                </Typography>
+              </motion.div>
+            </Box>
+            
+            {btnProps && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.3,
+                  ease: 'easeInOut'
+                }}
+              >
                 <ButtonAnimationWrapper>
                   <Button
                     variant="contained"
+                    color={btnProps?.color || "primary"}
+                    href={btnProps?.href}
                     endIcon={<SvgIcon name="tabler-arrow-right" size={16} color="background.default" />}
-                    {...primaryBtn}
-                  />
+                  >
+                    {btnProps?.label}
+                  </Button>
                 </ButtonAnimationWrapper>
-              </Stack>
-            </motion.div>
+              </motion.div>
+            )}
+            
+            {benefitHeading && benefits && benefits.length > 0 && (
+              <Box sx={{ mt: 4 }}>
+                <Typography 
+                  variant="h4" 
+                  component="h3" 
+                  sx={{ 
+                    fontWeight: 600, 
+                    mb: 3,
+                    color: 'text.primary' 
+                  }}
+                >
+                  {benefitHeading.title}
+                </Typography>
+                
+                <Grid container spacing={2}>
+                  {benefits.map((benefit) => (
+                    <Grid item xs={12} sm={6} key={benefit.id}>
+                      <Box 
+                        sx={{ 
+                          p: 2, 
+                          height: '100%', 
+                          borderRadius: 2,
+                          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                          '&:hover': {
+                            transform: 'translateY(-4px)',
+                            boxShadow: '0 6px 16px rgba(0,0,0,0.08)'
+                          }
+                        }}
+                      >
+                        <Box sx={{ mb: 1.5 }}>
+                          {benefit.icon}
+                        </Box>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                          {benefit.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {benefit.description}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
+            )}
           </Stack>
         </Grid>
+        
         <Grid item xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -106,29 +160,25 @@ export default function About1({ image, imageComponent, primaryBtn, headingLine,
                   borderRadius: 4,
                   overflow: 'hidden',
                   boxShadow: '0px 20px 40px rgba(0, 0, 0, 0.08)',
-                  ...(downMD && { height: 300 }),
-                  ...(!downMD && { height: 460 })
+                  height: { xs: 300, md: 460 }
                 }}
               >
-                {imageComponent ? (
-                  imageComponent
-                ) : (
-                  <Box 
-                    component="img" 
-                    src={image} 
-                    alt="About Us" 
-                    sx={{ 
-                      width: '100%', 
-                      height: '100%', 
-                      objectFit: 'cover',
-                      transition: 'transform 0.6s ease-in-out',
-                      '&:hover': {
-                        transform: 'scale(1.05)'
-                      }
-                    }} 
-                  />
-                )}
+                <Box 
+                  component="img" 
+                  src={imageProps?.src} 
+                  alt={imageProps?.alt || "About Us"} 
+                  sx={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover',
+                    transition: 'transform 0.6s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.05)'
+                    }
+                  }} 
+                />
               </GraphicsCard>
+              
               <Box
                 sx={{
                   position: 'absolute',
@@ -159,14 +209,33 @@ export default function About1({ image, imageComponent, primaryBtn, headingLine,
           </motion.div>
         </Grid>
       </Grid>
-    </ContainerWrapper>
+    </Container>
   );
 }
 
 About1.propTypes = {
-  image: PropTypes.string,
-  imageComponent: PropTypes.node,
-  primaryBtn: PropTypes.object,
-  headingLine: PropTypes.string,
-  textLines: PropTypes.array
+  heading: PropTypes.shape({
+    title: PropTypes.string,
+    subtitle: PropTypes.string
+  }),
+  btnProps: PropTypes.shape({
+    label: PropTypes.string,
+    href: PropTypes.string,
+    color: PropTypes.string
+  }),
+  imageProps: PropTypes.shape({
+    src: PropTypes.string,
+    alt: PropTypes.string
+  }),
+  benefitHeading: PropTypes.shape({
+    title: PropTypes.string
+  }),
+  benefits: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      icon: PropTypes.node
+    })
+  )
 }; 
