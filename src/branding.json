@@ -1,0 +1,24 @@
+{
+  "brandName": "Skutopia",
+  "title": "Academy",
+  "company": {
+    "name": "Skutopia Academy",
+    "url": "/",
+    "socialLink": {
+      "linkedin": "#",
+      "instagram": "#",
+      "facebook": "#",
+      "youtube": "#",
+      "github": "https://github.com/phoenixcoded",
+      "dribble": "https://dribbble.com/Phoenixcoded",
+      "discord": "https://discord.com/invite/AfJqqYeG",
+      "support": "https://support.phoenixcoded.net"
+    }
+  },
+  "logo": {
+    "main": "",
+    "logoIcon": "",
+    "logoFab": "",
+    "logoWatermark": ""
+  }
+}

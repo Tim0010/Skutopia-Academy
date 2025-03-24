@@ -1,0 +1,30 @@
+[1mdiff --git a/src/views/landings/default/theme/palette.js b/src/views/landings/default/theme/palette.js[m
+[1mindex b19b8b1..437cc40 100644[m
+[1m--- a/src/views/landings/default/theme/palette.js[m
+[1m+++ b/src/views/landings/default/theme/palette.js[m
+[36m@@ -2,9 +2,9 @@[m
+ export default function palette() {[m
+   return {[m
+     primary: {[m
+[31m-      main: '#00447c', // Methodist University blue[m
+[31m-      light: '#3a6ea5',[m
+[31m-      dark: '#002e56',[m
+[32m+[m[32m      main: '#00573c', // Dark green (replacing Methodist University blue #00447c)[m
+[32m+[m[32m      light: '#4D8B77',[m
+[32m+[m[32m      dark: '#004730',[m
+       contrastText: '#ffffff'[m
+     },[m
+     secondary: {[m
+[36m@@ -32,9 +32,9 @@[m [mexport default function palette() {[m
+       contrastText: '#ffffff'[m
+     },[m
+     info: {[m
+[31m-      main: '#2196f3',[m
+[31m-      light: '#64b5f6',[m
+[31m-      dark: '#0d47a1',[m
+[32m+[m[32m      main: '#00573c', // Dark green (replacing blue #2196f3)[m
+[32m+[m[32m      light: '#4D8B77',[m
+[32m+[m[32m      dark: '#004730',[m
+       contrastText: '#ffffff'[m
+     },[m
+     grey: {[m

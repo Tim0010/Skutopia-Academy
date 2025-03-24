@@ -1,0 +1,64 @@
+/* Reset and normalize */
+@import 'normalize.css';
+
+/* slick-carousel slider */
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
+
+/* to remove default browser focus-visible */
+body * {
+  outline: none;
+}
+
+body *:focus-visible,
+body *:focus {
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar styles */
+/* For Webkit browsers like Chrome, Safari */
+*::-webkit-scrollbar-track {
+  background: transparent; /* track color */
+}
+
+*::-webkit-scrollbar {
+  width: 8px; /* Adjust for desired thinness */
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode scrollbar */
+[data-theme-mode='dark'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme-mode='dark'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Remove buttons from scrollbar */
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+[data-theme-mode='dark'] * {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
